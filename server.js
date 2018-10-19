@@ -7,7 +7,7 @@ const PORT = 3000;
 require('./db/db')
 
 app.get('/', (req, res) => {
-	res.send('testing')
+	res.render('index.ejs')
 })
 
 
