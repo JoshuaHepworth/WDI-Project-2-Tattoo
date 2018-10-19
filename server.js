@@ -6,6 +6,11 @@ const PORT = 3000;
 
 require('./db/db')
 
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(methodOverride('_method'))
+app.use('/assets', express.static('assets'));
+
+
 app.get('/', (req, res) => {
 	res.render('index.ejs')
 })
