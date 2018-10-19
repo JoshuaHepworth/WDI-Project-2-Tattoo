@@ -10,14 +10,14 @@ User goes to home page
 From the Artist Index Page Users can 
 	-See all of the artists and their image 
 	-Filter artists by city
-	-Hit the Portfolio button and go to that Artists 					Individual Show page
+	-Hit the Portfolio button and go to that Artists Individual Show page
 From the Individual Artist Show the User can
 	-See the Artists tattoos they’ve done in a carousel
 	-Hit the calendar|or Schedule button to go to the artists Scheduling Page
-	[STRECH]From the Artist Scheduling Page the User 		can
+	[STRECH]From the Artist Scheduling Page the User can
 		-Filtering through artists
 		-See the artists available dates
-		-Click on an available date and get taken to a form 		where they can fill out a form that will send the 				information to the artist and the artist will get back 		to the User if they’re down to do the session.
+		-Click on an available date and get taken to a form where they can fill out a form that will send the 				information to the artist and the artist will get back to the User if they’re down to do the session.
 ```
 
 # Wire Frames
