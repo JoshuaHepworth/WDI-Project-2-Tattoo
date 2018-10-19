@@ -1,0 +1,26 @@
+{
+  "name": "wdi-project-2-tattoo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JoshuaHepworth/WDI-Project-2-Tattoo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JoshuaHepworth/WDI-Project-2-Tattoo/issues"
+  },
+  "homepage": "https://github.com/JoshuaHepworth/WDI-Project-2-Tattoo#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "method-override": "^3.0.0",
+    "mongoose": "^5.3.4"
+  }
+}
