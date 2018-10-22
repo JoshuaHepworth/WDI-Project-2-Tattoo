@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<h1>Add/Remove Favorite Artist</h1>
+<nav>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/clients">Client Index</a></li>
+         <form action="/clients/<%=client.id%>?_method=DELETE" method="POST">
+		<input type="submit" value="DELETE CLIENT">
+	</form>
+      </ul>
+    </nav>
+    <main>
+    	<h2>Artist List</h2>
+  </main>
+    	<form action="/clients/<%=client.id%>?_method=PUT" method="POST">
+		Favorites: <input type="text" name="founded" value="<%=client.favArtist[0].name%>"><br>
+		<input type="submit">
+	</form> 
+</body>
+</html>

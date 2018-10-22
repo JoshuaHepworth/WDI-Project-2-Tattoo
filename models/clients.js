@@ -1,8 +1,9 @@
 const mongoose = require('mongoose')
+const Artist = require('./artists')
 
 const clientSchema = new mongoose.Schema({
 	name: String,
-	favArtist: {type:String, required: true}
+	favArtist: [Artist.schema]
 	// tats: [tattooSchema],
 	//username: {type: String, required: true, unique: true}
 	//username: {type: String, required: true, unique: true}

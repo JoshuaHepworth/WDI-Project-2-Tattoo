@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
-// const Artist = require('../models/artists');
+
 const PORT = 3000;
 
 require('./db/db');
@@ -21,13 +21,8 @@ const clientController = require('./controllers/clientController')
 app.use('/artists', artistController);
 app.use('/clients', clientController)
 
-// /********Populate Artists/****************/
-// Artist.collection.insertMany(populateArtists,(err, data) => {
-// 	res.send('artist collection')
-// 	 console.log("added provided artist data")
-//      mongoose.connection.close();
-  
-//    });
+
+
 
 
 
