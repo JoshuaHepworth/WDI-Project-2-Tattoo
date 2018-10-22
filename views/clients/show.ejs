@@ -14,5 +14,10 @@
     </nav>
     <br>
     <h2>Favorite Artists</h2>
+
+    		<%client.favArtist.forEach((elem, i) => {%>
+				<option value="<%=elem.name%>"><%=elem.name%></option>	
+			<%})%>
+
 </body>
 </html>
