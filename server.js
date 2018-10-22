@@ -24,7 +24,6 @@ app.use('/clients', clientController)
 
 
 
-
 /******** What shows up when you go to localhost:3000/ *********/
 app.get('/', (req, res) => {
 	res.render('index.ejs')
