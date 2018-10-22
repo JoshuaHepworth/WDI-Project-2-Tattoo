@@ -18,6 +18,11 @@ app.use('/assets', express.static('assets'));
 const artistController = require('./controllers/artistController');
 const clientController = require('./controllers/clientController')
 /******** Controllers *********/
+app.use(session({
+	secret: 'This is a super secret String',
+	resave: false,
+	saveUninitialized: false
+}));
 app.use('/artists', artistController);
 app.use('/clients', clientController)
 
