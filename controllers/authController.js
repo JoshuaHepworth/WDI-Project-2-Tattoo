@@ -31,7 +31,7 @@ router.post('/register', async (req, res) => {
   // req.session.username = req.body.username;
   req.session.logged   = true;
   req.session.message  = '';
-  res.redirect('/clients');
+  res.redirect('/artists');
 });
 
 
