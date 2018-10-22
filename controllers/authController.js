@@ -24,6 +24,7 @@ router.post('/register', async (req, res) => {
   const userEntry = {};
   userEntry.username = req.body.username;
   userEntry.password = passwordHash;
+  userEntry.name = req.body.username
 
   const user = await Client.create(userEntry);
   console.log(user);
@@ -59,8 +60,6 @@ router.post('/login', async (req, res) => {
               req.session.message = 'Username or Password is Wrong';
               res.redirect('/auth/login')
         } // end of foundUser
-
-
 
 
   } catch(err) {

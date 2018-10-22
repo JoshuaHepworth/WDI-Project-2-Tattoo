@@ -210,13 +210,16 @@ router.get('/:id', (req, res) => {
 })
 // ******************** CREATE ROUTE ******************** //
 router.post('/', (req, res) => {
+	Client.findById(req.body.clientId, (err, foundClient) => {
 	Artist.create(req.body,
 		(err, createdArtist) => {
+			foundClient.favArtist.push(createdArtist)
 			if(err){console.log('---------ERROR---------', err);}
 			else{
 				console.log('------------CREATED ARTIST----------', createdArtist);
 					res.redirect('/artists');
 			}
+		})
 	})
 })
 // ******************** DESTROY ROUTE ******************** //
