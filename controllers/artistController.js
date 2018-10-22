@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
 		(err, allArtists) => {
 			if(err){console.log('--------ERROR--------', err);}
 			else{
-				console.log('----------ALL ARTISTS--------', allArtists);
+				console.log('----------ALL ARTISTS--------');
 				res.render('../views/artists/index.ejs',{
 					artists:allArtists
 				})

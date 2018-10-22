@@ -49,7 +49,11 @@ router.put('/:id', (req, res) => {
 })
 // ******************** DESTROY ROUTE ******************** //
 router.delete('/:id', (req, res) => {
+<<<<<<< HEAD
 	Client.findByIdAndRemove(req.params.id, () => {
+=======
+	Client.findByIdAndDelete(req.params.id, () => {
+>>>>>>> 85d4fc35c28cfed1440081e3a980ea3bb07c978e
 		res.redirect('/clients')
 	})
 })
