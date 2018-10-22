@@ -18,8 +18,12 @@ router.get('/new', (req, res) => {
 // ******************** SHOW ROUTE ******************** //
 router.get('/:id', (req, res) => {
 	Client.findById(req.params.id, (err, foundClient) => {
+		Artist.findById(req.params.id,
+		(err, foundArtist) => {
 		res.render('clients/show.ejs', {
+			artist: foundArtist,
 			client: foundClient
+			})
 		})
 	})
 })

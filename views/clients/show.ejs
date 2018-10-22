@@ -16,6 +16,7 @@
     <h2>Favorite Artists</h2>
     <%client.favArtist.forEach((elem, i) => {%>
 				<option value="<%=elem.name%>"><%=elem.name%></option>	
+				<a href="/artists/<%=elem.id%>"><%=elem.name%></a>
 			<%})%>
 </body>
 </html>
