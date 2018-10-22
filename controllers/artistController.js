@@ -11,13 +11,25 @@ router.get('/', (req, res) => {
 			if(err){console.log('--------ERROR--------', err);}
 			else{
 				console.log('----------FOUND ARTISTS--------', foundArtists);
-				res.render('../views/artists/index.ejs')
+				res.render('../views/artists/index.ejs',{
+					artist:foundArtists
+				})
 			}
 		}
 	)
 })
 // ******************** NEW ROUTE ******************** //
-
+router.get('/new', (req, res) => {
+	Artist.find({}, (err, newArtist) => {
+		if(err){console.log('---------ERROR---------', err);}
+		else{
+			console.log('--------------NEW ARTIST--------------', newArtist);
+				res.render('../views/artists/new.ejs', {
+					artist:newArtist
+				})
+		}
+	})
+})
 // ******************** CREATE ROUTE ******************** //
 
 // ******************** SHOW ROUTE ******************** //
