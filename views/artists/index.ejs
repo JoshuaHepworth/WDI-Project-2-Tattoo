@@ -6,6 +6,15 @@
 <body>
 	<h1>Artist Index Page</h1>
 	<br>
+
+	    <ul>
+        <% for(let i = 0; i < artists.length; i++){ %>
+         <li>
+           <a href="/artists/<%=artists[i].id%>"><%=artists[i].name %></a>
+         </li>
+      <% } %>
+    </ul>
+
 	<a href="http://localhost:3000/">Home</a>
 	<br>
 	<a href="http://localhost:3000/artists/new">New Artist</a>
