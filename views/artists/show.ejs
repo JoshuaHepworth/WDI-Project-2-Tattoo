@@ -17,9 +17,12 @@
 	<br>
 	<a href="http://localhost:3000/artists">Artists Index</a>
 	<br>
-		<form action="/artists/<%=artist.id%>?_method=DELETE" method="POST">
-			Delete Artist:<input type="submit" name="Delete Artist">
-		</form>
+
+    <form action="/artists/<%=artist.id%>?_method=PUT" method="POST">
+    	Add to Favorites: <input type="submit" name="Add Artist To Favs">
+	<form action="/artists/<%=artist.id%>?_method=DELETE" method="POST">
+		Delete Artist:<input type="submit" name="Delete Artist">
+	</form>
 
 </body>
 </html>

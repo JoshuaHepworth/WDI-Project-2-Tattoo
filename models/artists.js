@@ -4,6 +4,7 @@ const artistSchema = new mongoose.Schema({
 	name: String,
 	city: {type:String, required: true},
 	yearsExp: Number,
+
 	// work: [tats],
 	// clients: [client],
 	// appointments: [appointments]
