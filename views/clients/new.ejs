@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <header>
+    <h1>Create Client</h1>
+    <nav>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/clients">Client Index</a></li>
+      </ul>
+    </nav>
+  </header><!-- /header -->
+  <main>
+    <form action="/clients" method="POST">
+      Name: <input type="text" name="name"><br>
+      Favorite Artist: <input type="text" name="favArtist"><br>
+      Favorite City: <input type="text" name="favArtist.city"><br>
+      <button type="submit">Add Client</button>
+    </form>
+  </main>
+
+</body>
+</html>

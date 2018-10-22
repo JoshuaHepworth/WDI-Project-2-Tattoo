@@ -15,30 +15,58 @@ router.get('/', (req, res) => {
 router.get('/new', (req, res) => {
 	res.render('clients/new.ejs')
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// ******************** CREATE ROUTE ******************** //
-
 // ******************** SHOW ROUTE ******************** //
-
-// ******************** DESTROY ROUTE ******************** //
-
+router.get('/:id', (req, res) => {
+	Client.findById(req.params.id, (err, foundClient) => {
+		res.render('clients/show.ejs', {
+			client: foundClient
+		})
+	})
+})
 // ******************** EDIT ROUTE ******************** //
-
+router.get('/:id/edit', (req, res) => {
+	Client.findById(req.params.id, (err, editClient) => {
+		res.render('clients/edit.ejs', {
+			client: editClient
+		})
+	})
+})
+// ******************** CREATE ROUTE ****************** //
+router.post('/', (req, res) => {
+	Client.create(req.body, (err, createdClient) => {
+		if(err){
+			console.log(err)
+		} else {
+			res.redirect('/clients')
+		}
+	})
+})
 // ******************** UPDATE ROUTE ******************** 
+router.put('/:id', (req, res) => {
+	Client.findByIdAndUpdate(req.params.id, req.body, (err, updatedClient) => {
+		res.redirect('/clients')
+	})
+})
+// ******************** DESTROY ROUTE ******************** //
+router.delete('/:id', (req, res) => {
+	Client.findOneAndDelete(req.params.id, () => {
+		res.redirect('/clients')
+	})
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
