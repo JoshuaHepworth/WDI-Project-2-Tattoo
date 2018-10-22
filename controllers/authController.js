@@ -47,6 +47,10 @@ router.post('/login', async (req, res) => {
           //to make sure the passwords match
             if(bcrypt.compareSync(req.body.password, foundClient.password)){
               req.session.logged = true;
+              req.session.username = req.body.username;
+              req.session.password = req.body.password;
+              // store username in session
+              // and/or user id
 
               res.redirect('/artists')
             } else {
