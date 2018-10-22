@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
+const populateArtists = require('/populateArtists')
+const Artist = require('../models/artists');
 const PORT = 3000;
 
 require('./db/db');
@@ -15,8 +17,19 @@ app.use('/assets', express.static('assets'));
 
 
 const artistController = require('./controllers/artistController');
+const clientController = require('./controllers/clientController')
 /******** Controllers *********/
 app.use('/artists', artistController);
+app.use('/clients', clientController)
+
+/********Populate Artists/****************/
+Artist.collection.insertMany(populateArtists,(err, data) => {
+	res.send('artist collection')
+	 console.log("added provided artist data")
+     mongoose.connection.close();
+  
+   });
+
 
 
 /******** What shows up when you go to localhost:3000/ *********/
