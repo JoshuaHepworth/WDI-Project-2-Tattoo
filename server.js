@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
-
+const session = require('express-session');
 const PORT = 3000;
 
 require('./db/db');
@@ -17,9 +17,16 @@ app.use('/assets', express.static('assets'));
 
 const artistController = require('./controllers/artistController');
 const clientController = require('./controllers/clientController')
+const authController = require('./controllers/authController')
 /******** Controllers *********/
+app.use(session({
+	secret: 'This is a super secret String',
+	resave: false,
+	saveUninitialized: false
+}));
 app.use('/artists', artistController);
 app.use('/clients', clientController)
+app.use('/auth', authController)
 
 
 

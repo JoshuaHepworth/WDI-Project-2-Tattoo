@@ -3,7 +3,9 @@ const Artist = require('./artists')
 
 const clientSchema = new mongoose.Schema({
 	name: String,
-	favArtist: [Artist.schema]
+	favArtist: [Artist.schema],
+	username: String,
+	password: String
 	// tats: [tattooSchema],
 	//username: {type: String, required: true, unique: true}
 	//username: {type: String, required: true, unique: true}
