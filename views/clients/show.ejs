@@ -14,6 +14,11 @@
     </nav>
     <br>
     <h2>Favorite Artists</h2>
+    <ul>
+		<%client.favArtist.forEach((elem, i) => {%>
+			<li><a href="/artists/<%=elem.id%>"><%=elem.name%></a></li>	
+		<%})%>
+	</ul>
     
 </body>
 </html>

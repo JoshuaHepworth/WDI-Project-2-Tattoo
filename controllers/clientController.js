@@ -13,8 +13,8 @@ router.get('/', (req, res) => {
 });
 // ******************** NEW ROUTE ******************** //
 router.get('/new', (req, res) => {
-	res.render('clients/new.ejs')
-})
+	res.render('clients/new.ejs');
+	});
 // ******************** SHOW ROUTE ******************** //
 router.get('/:id', (req, res) => {
 	Client.findById(req.params.id, (err, foundClient) => {
@@ -49,7 +49,7 @@ router.put('/:id', (req, res) => {
 })
 // ******************** DESTROY ROUTE ******************** //
 router.delete('/:id', (req, res) => {
-	Client.findOneAndDelete(req.params.id, () => {
+	Client.findByIdAndRemove(req.params.id, () => {
 		res.redirect('/clients')
 	})
 })
