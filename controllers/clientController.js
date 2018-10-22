@@ -3,29 +3,32 @@ const router = express.Router();
 const Client = require('../models/clients');
 const Artist = require('../models/artists')
 
+// ******************** INDEX ROUTE ******************** //
 router.get('/', (req, res) => {
 	Client.find({}, (err, foundClients) => {
-		res.render('/clients/index.ejs', {
+		res.render('clients/index.ejs', {
 			clients: foundClients
 		});
 	});
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-// ******************** INDEX ROUTE ******************** //
-
 // ******************** NEW ROUTE ******************** //
+router.get('/new', (req, res) => {
+	res.render('clients/new.ejs')
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // ******************** CREATE ROUTE ******************** //
 
