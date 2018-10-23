@@ -212,7 +212,8 @@ router.get('/:id', (req, res) => {
 				res.render('artists/show.ejs',{
 					artist:foundArtist,
 					username: req.session.username,
-					session: req.session.logged
+					session: req.session.logged,
+					user: req.body.userType
 				})
 			}
 		})
