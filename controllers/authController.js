@@ -51,7 +51,6 @@ router.post('/login', async (req, res) => {
               req.session.password = req.body.password;
               // store username in session
               // and/or user id
-
               res.redirect('/artists')
             } else {
 
