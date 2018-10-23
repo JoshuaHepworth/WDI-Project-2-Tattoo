@@ -72,7 +72,6 @@ router.post('/register', async (req, res) => {
   artistEntry.name = req.body.username
   artistEntry.city = req.body.city
   artistEntry.yearsExp = req.body.yearsExp
-  artistEntry.urls = req.body.urls
 
   const artist = await Artist.create(artistEntry);
   console.log(artist);
