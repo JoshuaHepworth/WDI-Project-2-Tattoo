@@ -3,6 +3,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 const session = require('express-session');
+const Artist = require('./models/artists')
 const jquery = require('jquery')
 const PORT = 3000;
 
@@ -33,10 +34,14 @@ app.use('/auth', authController)
 
 /******** What shows up when you go to localhost:3000/ *********/
 app.get('/', (req, res) => {
-	res.render('index.ejs', {
-		username: req.session.username,
-		session: req.session.logged
-	})
+	Artist.find({},(err, allArtists) => {
+		res.render('index.ejs', {
+			artists: allArtists,
+			username: req.session.username,
+			session: req.session.logged
+			
+	})	
+		})
 });
 
 /******** Middle Ware *********/

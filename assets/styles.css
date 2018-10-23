@@ -16,3 +16,7 @@ h1{
 	box-shadow: 0 10px 10px -2px gray;
 
 }
+.artistCarousel {
+	background-color: lightblue;
+	max-width:50%;
+}

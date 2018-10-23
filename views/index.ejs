@@ -2,11 +2,22 @@
 <html>
 <head>
 	<title></title>
+
 </head>
 <body>
 <% include partials/nav.ejs %>
 <h1>Home</h1><br>
-<a href="/auth/login">Login/Register</a>
+<a href="/auth/login">Login/Register</a><br>
+		
+<div>
+	<ul>
+        <% for(let i = 0; i < artists.length; i++){ %>
+         <li>
+           <a href="/artists/<%=artists[i].id%>"><%=artists[i].name %></a>
+         </li>
+      <% } %>
+    </ul>
+</div>
 
 </body>
 </html>
