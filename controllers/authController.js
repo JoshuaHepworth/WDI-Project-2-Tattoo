@@ -55,8 +55,6 @@ router.post('/login', async (req, res) => {
               // ../partials/nav.ejs
               // store username in session
               // and/or user id
-
-              // $(req.session.username).appendTo('../partials/nav.ejs')
               res.redirect('/artists')
 
             } else {
