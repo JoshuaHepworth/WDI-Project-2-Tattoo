@@ -11,6 +11,13 @@
 	<br>
 	<h2></h2>
 
+<select name="city">
+           <%artists.forEach((elem, i) => {%>
+                <option value="<%=elem.city%>"><%=elem.city%></option>    
+            <%})%>
+</select>
+
+</ul>
 	<ul>
         <% for(let i = 0; i < artists.length; i++){ %>
          <li>

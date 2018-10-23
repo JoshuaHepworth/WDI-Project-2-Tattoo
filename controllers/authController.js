@@ -110,11 +110,12 @@ router.post('/login', async (req, res) => {
           const foundArtist = await Artist.findOne({username: req.body.username});
           const foundClient = await Client.findOne({username: req.body.username});
           console.log(foundClient)
+          console.log(foundArtist)
 
-          if(foundClient || foundArtist){
+          if(foundClient){
           // if the users exists use the bcrypt compare password
           //to make sure the passwords match
-            if(bcrypt.compareSync(req.body.password, foundClient.password || foundArtist.password)){
+            if(bcrypt.compareSync(req.body.password, foundClient.password)){
               req.session.logged = true;
               req.session.username = req.body.username;
               req.session.password = req.body.password;
@@ -131,11 +132,32 @@ router.post('/login', async (req, res) => {
               res.redirect('/auth/login')
             }
 
+ 
+        } else if (foundArtist){
+          // if the users exists use the bcrypt compare password
+          //to make sure the passwords match
+            if(bcrypt.compareSync(req.body.password, foundArtist.password)){
+              req.session.logged = true;
+              req.session.username = req.body.username;
+              req.session.password = req.body.password;
+              
+              // ../partials/nav.ejs
+              // store username in session
+              // and/or user id
 
+              res.redirect('/artists')
+
+            } else {
+
+              req.session.message = 'Username or Password is Wrong';
+              res.redirect('/auth/login')
+            }
+
+ 
         } else {
               req.session.message = 'Username or Password is Wrong';
               res.redirect('/auth/login')
-        } // end of foundUser
+        };//end of first session check
 
 
   } catch(err) {
@@ -167,3 +189,4 @@ router.get('/logout', (req, res) => {
 
 
 module.exports = router;
+

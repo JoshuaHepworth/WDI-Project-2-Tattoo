@@ -213,7 +213,7 @@ router.get('/:id', (req, res) => {
 					artist:foundArtist,
 					username: req.session.username,
 					session: req.session.logged,
-					user: req.body.userType
+					user: req.session
 				})
 			}
 		})
