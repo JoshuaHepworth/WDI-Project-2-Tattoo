@@ -1,3 +1,19 @@
-body {
-	background-color:lightblue;
+/*body {
+	background-color: #ffdfba;
+}
+
+h1{
+	text-align: center;
+}
+.col {
+	text-align: center;
+
+	border-bottom: 1px solid black;
+	padding-top: 30px;
+	box-shadow: 0 4px 5px -2px gray;
+}*/
+.col:hover{
+
+	box-shadow: 0 10px 10px -2px gray;
+
 }
