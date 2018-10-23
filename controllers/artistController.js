@@ -281,6 +281,7 @@ router.put('/:id', (req, res) => {
 			});
 				
 		});
+	})
 })
 
 	// Artist.findByIdAndUpdate(req.params.id, req.body,
@@ -292,6 +293,5 @@ router.put('/:id', (req, res) => {
 
 	// 			}
 	// 	})
-})
 
 module.exports = router;

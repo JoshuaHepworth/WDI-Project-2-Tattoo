@@ -5,15 +5,28 @@
           <input type="radio" name="userType" value="client">Client
         </div>
         <div class="col-lg">
-          <input type="radio" name="userType" value="artist">Artist
+          <input type="radio" name="userType" value="artist">Artist<br>
+
+
+          <input class="artistKeys" placeholder="City" type="text" name="city"><br>
+          <input class="artistKeys" placeholder="Years of Experience" type="text" name="yearsExp"><br>
+          <input class="artistKeys" placeholder="Tattoo Url" type="url" name="urls" id="url">
+
+
+          <br>
         </div>
       </div>
     </div>
     <br>
-<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script>
-$('input[type="checkbox"]').on('change', function() {
-   $('input[type="checkbox"]').not(this).prop('checked', false);
-});
+  // hide .artistKeys
+  $('input[type="radio"]').on('change', function(event) {
+     // $('input[type="checkbox"]').not(this).prop('checked', false);
+     // use event.target to figure out where the person selected artist or client
+     // if they selected artists
+     // show .artistKeys
+     // else 
+        // hide .artistKeys
+  });
 </script>
- -->
