@@ -6,14 +6,16 @@
 </head>
 <body>
 <% include ../partials/nav.ejs %>
-  <h1>Register</h1> <small><%=message%></small>
+<br>
+<br>
+  <h3>Register</h3> <small><%=message%></small>
   <form action="/auth/register" method="POST">
     <input type="text" name="username">
     <input type="password" name="password">
     <button type="submit">Login</button>
   </form>
 
-  <h1>Login</h1> <small><%=message%></small>
+  <h3>Login</h3> <small><%=message%></small>
   <form action="/auth/login" method="POST">
     <input type="text" name="username">
     <input type="password" name="password">

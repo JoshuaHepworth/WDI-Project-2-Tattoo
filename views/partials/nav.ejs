@@ -13,7 +13,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col">
-					<a href="http://localhost:3000/">Home</a></li>
+					<a href="http://localhost:3000/">Home</a>
 				</div>
 				<div class="col">
 					<a href="http://localhost:3000/artists">Artists</a>
@@ -21,13 +21,16 @@
 				<div class="col">
 					<a href="http://localhost:3000/clients">Clients</a>
 				</div>
+				<%if (session === false) {%>
 				<div class="col">
 					<a href="http://localhost:3000/auth/login">Register/Login</a>
-				</div>
+					<% } else {%>
+				<!-- </div> -->
 				<div class="col">
 					<a href="/auth/logout">Logout</a>
 				</div>
-				<div class="col-username">
+				<%}%>
+				<div class="col">
 					<h3><%=username%></h3>
 				</div>
  

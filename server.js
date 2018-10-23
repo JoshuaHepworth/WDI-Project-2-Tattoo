@@ -34,7 +34,8 @@ app.use('/auth', authController)
 /******** What shows up when you go to localhost:3000/ *********/
 app.get('/', (req, res) => {
 	res.render('index.ejs', {
-		username: req.session.username
+		username: req.session.username,
+		session: req.session.logged
 	})
 });
 
