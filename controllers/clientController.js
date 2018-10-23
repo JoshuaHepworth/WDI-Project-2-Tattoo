@@ -8,7 +8,8 @@ router.get('/', (req, res) => {
 	Client.find({}, (err, foundClients) => {
 		res.render('clients/index.ejs', {
 			clients: foundClients,
-			username: req.session.username
+			username: req.session.username,
+			session: req.session.logged
 		});
 	});
 });
@@ -24,7 +25,9 @@ router.get('/:id', (req, res) => {
 		res.render('clients/show.ejs', {
 			artist: foundArtist,
 			client: foundClient,
-			username: req.session.username
+			username: req.session.username,
+			session: req.session.logged
+
 			})
 		})
 	})
@@ -34,7 +37,9 @@ router.get('/:id/edit', (req, res) => {
 	Client.findById(req.params.id, (err, editClient) => {
 		res.render('clients/edit.ejs', {
 			client: editClient,
-			username: req.session.username
+			username: req.session.username,
+			session: req.session.logged
+
 		})
 	})
 })
