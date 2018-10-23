@@ -16,7 +16,8 @@ router.get('/', (req, res) => {
 				console.log('----------ALL ARTISTS--------');
 				res.render('../views/artists/index.ejs',{
 					artists:allArtists,
-					username: req.session.username
+					username: req.session.username,
+					session: req.session.logged
 				})
 			}
 		}
@@ -31,7 +32,8 @@ router.get('/new', (req, res) => {
 			console.log('--------------NEW ARTIST--------------', newArtist);
 				res.render('../views/artists/new.ejs', {
 					artists:newArtist,
-					username: req.session.username
+					username: req.session.username,
+					session: req.session.logged
 				})
 		}
 	})
@@ -209,7 +211,8 @@ router.get('/:id', (req, res) => {
 				console.log('---------------FOUND ARTIST----------', foundArtist);
 				res.render('artists/show.ejs',{
 					artist:foundArtist,
-					username: req.session.username
+					username: req.session.username,
+					session: req.session.logged
 				})
 			}
 		})
@@ -249,7 +252,8 @@ router.get('/:id/edit', (req, res) => {
 				console.log('--------------EDIT ARTIST', editArtist);
 					res.render('../views/artists/edit.ejs',{
 						artist:editArtist,
-						username: req.session.username
+						username: req.session.username,
+						session: req.session.logged
 					})
 			}
 	})

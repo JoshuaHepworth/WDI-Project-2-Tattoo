@@ -11,7 +11,8 @@ router.get('/login', (req, res) => {
   // you have attached to req a new property called session
   res.render('auth/login.ejs', {
     message: req.session.message,
-    username: req.session.username
+    username: req.session.username,
+    session: req.session.logged
   });
 });
 
