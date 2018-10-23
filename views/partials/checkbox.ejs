@@ -5,15 +5,12 @@
           <input class="clientButton" type="radio" name="userType" value="client">Client
         </div>
         <div class="col-lg">
-          <input class="artistButton" type="radio" name="userType" value="artist">Artist<br>
-
-          <!-- <form action ="/artists" method="POST"> -->
-          <input class="artistKeys" placeholder="City" type="text" name="city"><br>
-          <input class="artistKeys" placeholder="Years of Experience" type="text" name="yearsExp"><br>
-          <input class="artistKeys" placeholder="Tattoo Url" type="url" name="urls" id="url">
-        <!-- </form> -->
-
-          <br>
+          <input class="artistButton" type="radio" name="userType" value="artist">Artist
+          <div class="artistKeys">
+          <input class="artistKeys" placeholder="City" type="text" name="city" required><br>
+          <input class="artistKeys" placeholder="Years of Experience" type="text" name="yearsExp" required><br>
+          </div>
+        
         </div>
       </div>
     </div>
@@ -21,23 +18,13 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script>
   // hide .artistKeys
+$('.artistKeys').hide()
+$(".artistButton").on("click", () => {
+    $('.artistKeys').show()
+    
+})
+$(".clientButton").on("click", () => {
   $('.artistKeys').hide()
-  // $('input[type="radio"]').on('change', function(event) {
-     // use event.target to figure out where the person selected artist or client
-   //   if('.artistButton' === 'change'){
-   // }
-   $(".artistButton").on("click", () => {
-     $('.artistKeys').show()
     
 })
-      $(".clientButton").on("click", () => {
-     $('.artistKeys').hide()
-    
-})
-     // if they selected artists
-     // show .artistKeys
-     // else 
-        // hide .artistKeys
-  // });
-     // $('input[type="checkbox"]').not(this).prop('checked', false);
 </script>
