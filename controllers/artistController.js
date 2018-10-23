@@ -293,7 +293,17 @@ router.put('/:id', (req, res) => {
 			});
 				
 		});
+	})
 })
 
-})
+	// Artist.findByIdAndUpdate(req.params.id, req.body,
+	// 	(err, updateArtist) => {
+	// 			if(err){console.log('--------------ERROR------------', err);}
+	// 			else{
+	// 				console.log('--------------UPDATE ARTIST------------', updateArtist);
+	// 				    res.redirect('/artists')
+
+	// 			}
+	// 	})
+
 module.exports = router;

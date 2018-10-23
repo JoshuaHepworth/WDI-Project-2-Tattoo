@@ -6,7 +6,8 @@
 </head>
 <body>
   <% include ../partials/nav.ejs %>
-<h1><%=client.name%> Show Page </h1>
+<h1><%=client.name%></h1>
+<h4>Show Page</h4>
  <nav>
       <ul>
         <li><a href="/clients/<%=client.id%>/edit">Edit Client</a></li>
@@ -18,7 +19,7 @@
     		<%client.favArtist.forEach((elem, i) => {%>
 				<option value="<%=elem.name%>"><%=elem.name%></option>	
 
-				<a href="/artists/<%=elem.id%>">Go to Artist</a><br>
+				<a href="/artists/<%=elem.id%>">Go to Artist</a><br><br>
 			<%})%><br>
 </body>
 </html>
