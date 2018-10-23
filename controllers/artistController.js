@@ -275,6 +275,8 @@ router.put('/:id', (req, res) => {
 	console.log('----------------------------------------req.body in artist put route:');
 	console.log(req.body);
 	console.log(req.session);
+	Artist.findByIdAndUpdate(req.params.id, req.body,
+	 	(err, updateArtist) => {
 	// add artist to client favorites:
 		// find artist (use url params id)
 		Artist.findById(req.params.id, (err, foundArtist) => {
@@ -291,7 +293,7 @@ router.put('/:id', (req, res) => {
 			});
 				
 		});
-
+})
 
 })
 module.exports = router;

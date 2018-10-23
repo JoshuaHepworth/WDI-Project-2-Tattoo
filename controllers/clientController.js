@@ -27,7 +27,6 @@ router.get('/:id', (req, res) => {
 			client: foundClient,
 			username: req.session.username,
 			session: req.session.logged
-
 			})
 		})
 	})
@@ -39,7 +38,6 @@ router.get('/:id/edit', (req, res) => {
 			client: editClient,
 			username: req.session.username,
 			session: req.session.logged
-
 		})
 	})
 })

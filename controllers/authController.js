@@ -1,6 +1,7 @@
 const express = require('express');
 const router  = express.Router();
 const Client    = require('../models/clients');
+const Artist = require('../models/artists')
 const bcrypt  = require('bcrypt');
 const jquery = require('jquery')
 
@@ -17,6 +18,9 @@ router.get('/login', (req, res) => {
 });
 
 router.post('/register', async (req, res) => {
+
+  // res.send(req.body)
+  if (req.body.userType === 'client') {
 
   const password = req.body.password;
   const passwordHash = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
@@ -35,6 +39,7 @@ router.post('/register', async (req, res) => {
   req.session.logged   = true;
   req.session.message  = '';
   try {
+    // if (userType === 'client') {
           const foundClient = await Client.findOne({username: req.body.username});
           console.log(foundClient)
 
@@ -49,12 +54,52 @@ router.post('/register', async (req, res) => {
               // ../partials/nav.ejs
               // store username in session
               // and/or user id
-              }
+            }  
             }
           } catch (err) {
             res.send(err)
           }
   res.redirect('/artists');
+} if(req.body.userType === 'artist') {
+    const password = req.body.password;
+  const passwordHash = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+  console.log(passwordHash)
+
+
+  const artistEntry = {};
+  artistEntry.username = req.body.username;
+  artistEntry.password = passwordHash;
+  artistEntry.name = req.body.username
+
+  const artist = await Artist.create(artistEntry);
+  console.log(artist);
+  // initializing the session here
+  // req.session.username = req.body.username;
+  req.session.logged   = true;
+  req.session.message  = '';
+  try {
+    // if (userType === 'client') {
+          const foundArtist = await Artist.findOne({username: req.body.username});
+          console.log(foundArtist)
+
+          if(foundArtist){
+          // if the users exists use the bcrypt compare password
+          //to make sure the passwords match
+            if(bcrypt.compareSync(req.body.password, foundArtist.password)){
+              req.session.logged = true;
+              req.session.username = req.body.username;
+              req.session.password = req.body.password;
+              
+              // ../partials/nav.ejs
+              // store username in session
+              // and/or user id
+            }  
+            }
+          } catch (err) {
+            res.send(err)
+          }
+  res.redirect('/artists');
+}
 });
 
 
