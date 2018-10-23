@@ -5,6 +5,7 @@ const router = express.Router();
 const Artist = require('../models/artists');
 
 const Client = require('../models/clients')
+const mongooseUrl = require('mongoose-type-url');
 
 // ******************** INDEX ROUTE ******************** //
 router.get('/', (req, res) => {
