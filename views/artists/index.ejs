@@ -10,11 +10,12 @@
 	<h1>Artist Index Page</h1>
 	<br>
 	<h2></h2>
-    <select name="city">
-            <%artists.forEach((elem, i) => {%>
+
+<select name="city">
+           <%artists.forEach((elem, i) => {%>
                 <option value="<%=elem.city%>"><%=elem.city%></option>    
             <%})%>
-    </select>
+</select>
 
 </ul>
 	<ul>
