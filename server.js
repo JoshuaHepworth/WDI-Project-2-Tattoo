@@ -40,8 +40,8 @@ app.get('/', (req, res) => {
 			username: req.session.username,
 			session: req.session.logged
 			
-	})	
 		})
+	})	
 });
 
 /******** Middle Ware *********/
