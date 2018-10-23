@@ -14,7 +14,8 @@ router.get('/', (req, res) => {
 			else{
 				console.log('----------ALL ARTISTS--------');
 				res.render('../views/artists/index.ejs',{
-					artists:allArtists
+					artists:allArtists,
+					username: req.session.username
 				})
 			}
 		}
@@ -28,7 +29,8 @@ router.get('/new', (req, res) => {
 		else{
 			console.log('--------------NEW ARTIST--------------', newArtist);
 				res.render('../views/artists/new.ejs', {
-					artists:newArtist
+					artists:newArtist,
+					username: req.session.username
 				})
 		}
 	})
@@ -205,7 +207,8 @@ router.get('/:id', (req, res) => {
 			else{
 				console.log('---------------FOUND ARTIST----------', foundArtist);
 				res.render('artists/show.ejs',{
-					artist:foundArtist
+					artist:foundArtist,
+					username: req.session.username
 				})
 			}
 		})
@@ -215,7 +218,7 @@ router.post('/', (req, res) => {
 	Client.findById(req.body.clientId, (err, foundClient) => {
 		Artist.create(req.body,
 			(err, createdArtist) => {
-				foundClient.favArtist.push(createdArtist)
+				// foundClient.favArtist.push(createdArtist)
 				if(err){console.log('---------ERROR---------', err);}
 				else{
 					console.log('------------CREATED ARTIST----------', createdArtist);
@@ -244,7 +247,8 @@ router.get('/:id/edit', (req, res) => {
 			else{
 				console.log('--------------EDIT ARTIST', editArtist);
 					res.render('../views/artists/edit.ejs',{
-						artist:editArtist
+						artist:editArtist,
+						username: req.session.username
 					})
 			}
 	})

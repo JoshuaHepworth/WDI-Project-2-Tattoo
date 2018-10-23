@@ -2,6 +2,7 @@ const express = require('express');
 const router  = express.Router();
 const Client    = require('../models/clients');
 const bcrypt  = require('bcrypt');
+const jquery = require('jquery')
 
 
 router.get('/login', (req, res) => {
@@ -9,7 +10,8 @@ router.get('/login', (req, res) => {
   // ON EVERY SINGLE ROUTE IN THE WHOLE ENTIRE APPLICATION
   // you have attached to req a new property called session
   res.render('auth/login.ejs', {
-    message: req.session.message
+    message: req.session.message,
+    username: req.session.username
   });
 });
 
@@ -49,10 +51,14 @@ router.post('/login', async (req, res) => {
               req.session.logged = true;
               req.session.username = req.body.username;
               req.session.password = req.body.password;
+              
+              // ../partials/nav.ejs
               // store username in session
               // and/or user id
 
+              // $(req.session.username).appendTo('../partials/nav.ejs')
               res.redirect('/artists')
+
             } else {
 
               req.session.message = 'Username or Password is Wrong';
