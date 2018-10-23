@@ -10,9 +10,9 @@ require('./db/db');
 
 
 /******** Middle Ware *********/
+app.use('/assets', express.static('assets'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(methodOverride('_method'));
-app.use('/assets', express.static('assets'));
 
 
 const artistController = require('./controllers/artistController');
