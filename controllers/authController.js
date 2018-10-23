@@ -17,40 +17,6 @@ router.get('/login', (req, res) => {
 
 router.post('/register', async (req, res) => {
 
-  try {
-          const foundClient = await Client.findOne({username: req.body.username});
-          console.log(foundClient)
-
-          if(foundClient){
-          // if the users exists use the bcrypt compare password
-          //to make sure the passwords match
-            if(bcrypt.compareSync(req.body.password, foundClient.password)){
-              req.session.logged = true;
-              req.session.username = req.body.username;
-              req.session.password = req.body.password;
-              
-              // ../partials/nav.ejs
-              // store username in session
-              // and/or user id
-
-              res.redirect('/artists')
-
-            } else {
-
-              req.session.message = 'Username or Password is Wrong';
-              res.redirect('/auth/login')
-            }
-
-
-        } else {
-              req.session.message = 'Username or Password is Wrong';
-              res.redirect('/auth/login')
-        } // end of foundUser
-
-
-  } catch(err) {
-    res.send('error')
-  }
   const password = req.body.password;
   const passwordHash = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
   console.log(passwordHash)
@@ -67,6 +33,26 @@ router.post('/register', async (req, res) => {
   // req.session.username = req.body.username;
   req.session.logged   = true;
   req.session.message  = '';
+  try {
+          const foundClient = await Client.findOne({username: req.body.username});
+          console.log(foundClient)
+
+          if(foundClient){
+          // if the users exists use the bcrypt compare password
+          //to make sure the passwords match
+            if(bcrypt.compareSync(req.body.password, foundClient.password)){
+              req.session.logged = true;
+              req.session.username = req.body.username;
+              req.session.password = req.body.password;
+              
+              // ../partials/nav.ejs
+              // store username in session
+              // and/or user id
+              }
+            }
+          } catch (err) {
+            res.send(err)
+          }
   res.redirect('/artists');
 });
 
