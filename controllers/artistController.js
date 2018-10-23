@@ -258,6 +258,18 @@ router.get('/:id/edit', (req, res) => {
 			}
 	})
 })
+router.put('/:id', (req, res) => {
+	Artist.findByIdAndUpdate(req.params.id, req.body,
+		(err, updateArtist) => {
+				if(err){console.log('--------------ERROR------------', err);}
+				else{
+					console.log('--------------UPDATE ARTIST------------', updateArtist);
+					    res.redirect('/artists')
+
+				}
+		})
+	
+})
 // ******************** UPDATE ROUTE ******************** //
 router.put('/:id', (req, res) => {
 	console.log('----------------------------------------req.body in artist put route:');
@@ -271,7 +283,7 @@ router.put('/:id', (req, res) => {
 		// find client (use username in req.session)
 			Client.findOne({username: req.session.username}, (err, foundClient) => {
 		// push artist into client favs
-				foundClient.favArtist.push(foundArtist);
+				// foundClient.favArtist.push(foundArtist);
 		// client.save
 					foundClient.save((err, savedNewArtist) => {
 						if(err){console.log('--------ERROR--------', err);}

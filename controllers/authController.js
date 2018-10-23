@@ -18,8 +18,10 @@ router.get('/login', (req, res) => {
 });
 
 router.post('/register', async (req, res) => {
+
   // res.send(req.body)
   if (req.body.userType === 'client') {
+
   const password = req.body.password;
   const passwordHash = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
   console.log(passwordHash)
