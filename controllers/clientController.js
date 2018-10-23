@@ -7,7 +7,8 @@ const Artist = require('../models/artists')
 router.get('/', (req, res) => {
 	Client.find({}, (err, foundClients) => {
 		res.render('clients/index.ejs', {
-			clients: foundClients
+			clients: foundClients,
+			username: req.session.username
 		});
 	});
 });
@@ -22,7 +23,8 @@ router.get('/:id', (req, res) => {
 		(err, foundArtist) => {
 		res.render('clients/show.ejs', {
 			artist: foundArtist,
-			client: foundClient
+			client: foundClient,
+			username: req.session.username
 			})
 		})
 	})
@@ -31,7 +33,8 @@ router.get('/:id', (req, res) => {
 router.get('/:id/edit', (req, res) => {
 	Client.findById(req.params.id, (err, editClient) => {
 		res.render('clients/edit.ejs', {
-			client: editClient
+			client: editClient,
+			username: req.session.username
 		})
 	})
 })
