@@ -9,12 +9,18 @@ const jquery = require('jquery')
 router.get('/login', (req, res) => {
   // ON EVERY SINGLE ROUTE IN THE WHOLE ENTIRE APPLICATION
   // you have attached to req a new property called session
+  Client.findOne({username: req.session.username}, (err, foundClient) => {
+    Artist.findOne({username: req.session.username}, (err, foundArtist) => {
   res.render('auth/login.ejs', {
     message: req.session.message,
     username: req.session.username,
-    session: req.session.logged
+    session: req.session.logged,
+    client: foundClient,
+    artistId: foundArtist
   });
 });
+})
+})
 
 router.post('/register', async (req, res) => {
 
@@ -68,7 +74,7 @@ router.post('/register', async (req, res) => {
   const artistEntry = {};
   artistEntry.username = req.body.username;
   artistEntry.password = passwordHash;
-  artistEntry.name = req.body.username
+  artistEntry.name = req.body.name
   artistEntry.city = req.body.city
   artistEntry.yearsExp = req.body.yearsExp
 
@@ -119,11 +125,6 @@ router.post('/login', async (req, res) => {
               req.session.logged = true;
               req.session.username = req.body.username;
               req.session.password = req.body.password;
-              
-              // ../partials/nav.ejs
-              // store username in session
-              // and/or user id
-
               res.redirect('/artists')
 
             } else {
@@ -141,10 +142,6 @@ router.post('/login', async (req, res) => {
               req.session.username = req.body.username;
               req.session.password = req.body.password;
               
-              // ../partials/nav.ejs
-              // store username in session
-              // and/or user id
-
               res.redirect('/artists')
 
             } else {
@@ -159,14 +156,9 @@ router.post('/login', async (req, res) => {
               res.redirect('/auth/login')
         };//end of first session check
 
-
-  } catch(err) {
+    } catch(err) {
     res.send('error')
   }
-
-
-
-
 });
 
 

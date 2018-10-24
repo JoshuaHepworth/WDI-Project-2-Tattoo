@@ -11,34 +11,41 @@ const mongooseUrl = require('mongoose-type-url');
 router.get('/', (req, res) => {
 	Artist.find({},
 		(err, allArtists) => {
-			if(err){console.log('--------ERROR--------', err);}
-			else{
-				console.log('----------ALL ARTISTS--------');
+			Artist.findOne({username: req.session.username}, (err, foundArtist) => {
+			Client.findOne({username: req.session.username}, (err, foundClient) => {
+			// if(err){console.log('--------ERROR--------', err);}
+			// else{
+				// console.log('----------ALL ARTISTS--------');
 				res.render('../views/artists/index.ejs',{
-					artists:allArtists,
+					artists: allArtists,
 					username: req.session.username,
-					session: req.session.logged
+					session: req.session.logged,
+					client: foundClient,
+					artistId: foundArtist
 				})
-			}
+			})
 		}
 	)
+})
 })
 // ******************** NEW ROUTE ******************** //
 
 router.get('/new', (req, res) => {
 	Artist.find({}, (err, newArtist) => {
+		Artist.findOne({username: req.session.username}, (err, foundArtist) => {
 		if(err){console.log('---------ERROR---------', err);}
 		else{
 			console.log('--------------NEW ARTIST--------------', newArtist);
 				res.render('../views/artists/new.ejs', {
 					artists:newArtist,
 					username: req.session.username,
-					session: req.session.logged
+					session: req.session.logged,
+					artistId: foundArtist
 				})
 		}
 	})
 })
-
+})
 
 router.get('/seed', (req, res) => {
 	Artist.create(
@@ -206,6 +213,8 @@ router.get('/seed', (req, res) => {
 router.get('/:id', (req, res) => {
 	Artist.findById(req.params.id,
 		(err, foundArtist) => {
+			Artist.findOne({username: req.session.username}, (err, foundArtistId) => {
+			Client.findOne({username: req.session.username}, (err, foundClient) => {
 			if(err){console.log('----------ERROR---------', err);}
 			else{
 				console.log('---------------FOUND ARTIST----------', foundArtist);
@@ -213,10 +222,14 @@ router.get('/:id', (req, res) => {
 					artist:foundArtist,
 					username: req.session.username,
 					session: req.session.logged,
-					user: req.session
+					user: req.session,
+					client: foundClient,
+					artistId: foundArtistId
 				})
 			}
 		})
+})
+})
 })
 // ******************** CREATE ROUTE ******************** //
 router.post('/', (req, res) => {
@@ -248,16 +261,23 @@ router.delete('/:id', (req, res) => {
 router.get('/:id/edit', (req, res) => {
 	Artist.findById(req.params.id, 
 		(err, editArtist) => {
+			Artist.findOne({username: req.session.username}, (err, foundArtist) => {
+			Client.findOne({username: req.session.username}, (err, foundClient) => {
 			if(err){console.log('--------ERROR--------', err);}
 			else{
 				console.log('--------------EDIT ARTIST', editArtist);
 					res.render('../views/artists/edit.ejs',{
 						artist:editArtist,
 						username: req.session.username,
-						session: req.session.logged
+						session: req.session.logged,
+						client: foundClient,
+						artistId: foundArtist
+
 					})
 			}
 	})
+})
+})
 })
 router.put('/:id', (req, res) => {
 	Artist.findByIdAndUpdate(req.params.id, req.body,
