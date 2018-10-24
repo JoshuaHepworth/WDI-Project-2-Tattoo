@@ -7,7 +7,6 @@ const jquery = require('jquery')
 
 
 router.get('/login', (req, res) => {
-
   // ON EVERY SINGLE ROUTE IN THE WHOLE ENTIRE APPLICATION
   // you have attached to req a new property called session
   res.render('auth/login.ejs', {
@@ -21,7 +20,7 @@ router.post('/register', async (req, res) => {
 
   // res.send(req.body)
   if (req.body.userType === 'client') {
-
+      
   const password = req.body.password;
   const passwordHash = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
   console.log(passwordHash)
@@ -107,14 +106,15 @@ router.post('/register', async (req, res) => {
 
 router.post('/login', async (req, res) => {
   //first query the database to see if the user exists
-  try {
+  try {   
+          const foundArtist = await Artist.findOne({username: req.body.username});
           const foundClient = await Client.findOne({username: req.body.username});
           console.log(foundClient)
 
-          if(foundClient){
+          if(foundClient || foundArtist){
           // if the users exists use the bcrypt compare password
           //to make sure the passwords match
-            if(bcrypt.compareSync(req.body.password, foundClient.password)){
+            if(bcrypt.compareSync(req.body.password, foundClient.password || foundArtist.password)){
               req.session.logged = true;
               req.session.username = req.body.username;
               req.session.password = req.body.password;

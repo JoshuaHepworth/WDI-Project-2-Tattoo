@@ -21,22 +21,28 @@
 				<div class="col">
 					<a href="http://localhost:3000/clients">Clients</a>
 				</div>
-				<%if (session === false) {%>
-				<div class="col">
-					<a href="http://localhost:3000/auth/login">Register/Login</a>
-					<% } else {%>
-				<!-- </div> -->
-				<div class="col">
-					<a href="/auth/logout">Logout</a>
-				</div>
-				<%}%>
-				<div class="col-username">
+
+				<% if (session) { -%>
+					
+					<div class="col col-logout">
+						<a href="/auth/logout">Logout</a>
+					</div>
+
+				<% } else { -%>
+					
+					<div class="col col-reg">
+						<a href="http://localhost:3000/auth/login">Register/Login</a>
+						
+					</div>
+					
+				<% } -%>
+
+				
+				<div class="col col-username">
 					<h3><%=username%></h3>
 				</div>
  
+		</div>
 </div>
-</div>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-
 </body>
 </html>
