@@ -231,6 +231,22 @@ router.get('/:id', (req, res) => {
 })
 })
 })
+// ******************** SHOW ROUTE EMAIL ******************** //
+router.get('/:id/email', (req, res) => {
+	Artist.findById(req.params.id,
+		(err, foundArtist) => {
+			if(err){console.log('----------ERROR---------', err);}
+			else{
+				console.log('---------------FOUND ARTIST----------', foundArtist);
+				res.render('artists/email.ejs',{
+					artist:foundArtist,
+					username: req.session.username,
+					session: req.session.logged,
+					user: req.body.userType
+				})
+			}
+		})
+})
 // ******************** CREATE ROUTE ******************** //
 router.post('/', (req, res) => {
 	Client.findById(req.body.clientId, (err, foundClient) => {
