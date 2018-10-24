@@ -11,34 +11,41 @@ const mongooseUrl = require('mongoose-type-url');
 router.get('/', (req, res) => {
 	Artist.find({},
 		(err, allArtists) => {
-			if(err){console.log('--------ERROR--------', err);}
-			else{
-				console.log('----------ALL ARTISTS--------');
+			Artist.findOne({username: req.session.username}, (err, foundArtist) => {
+			Client.findOne({username: req.session.username}, (err, foundClient) => {
+			// if(err){console.log('--------ERROR--------', err);}
+			// else{
+				// console.log('----------ALL ARTISTS--------');
 				res.render('../views/artists/index.ejs',{
-					artists:allArtists,
+					artists: allArtists,
 					username: req.session.username,
-					session: req.session.logged
+					session: req.session.logged,
+					client: foundClient,
+					artistId: foundArtist
 				})
-			}
+			})
 		}
 	)
+})
 })
 // ******************** NEW ROUTE ******************** //
 
 router.get('/new', (req, res) => {
 	Artist.find({}, (err, newArtist) => {
+		Artist.findOne({username: req.session.username}, (err, foundArtist) => {
 		if(err){console.log('---------ERROR---------', err);}
 		else{
 			console.log('--------------NEW ARTIST--------------', newArtist);
 				res.render('../views/artists/new.ejs', {
 					artists:newArtist,
 					username: req.session.username,
-					session: req.session.logged
+					session: req.session.logged,
+					artistId: foundArtist
 				})
 		}
 	})
 })
-
+})
 
 router.get('/seed', (req, res) => {
 	Artist.create(
@@ -200,12 +207,14 @@ router.get('/seed', (req, res) => {
 			res.send(createdArtists)
 		}
 	)
-})
+});
 
 // ******************** SHOW ROUTE ******************** //
 router.get('/:id', (req, res) => {
 	Artist.findById(req.params.id,
 		(err, foundArtist) => {
+			Artist.findOne({username: req.session.username}, (err, foundArtistId) => {
+			Client.findOne({username: req.session.username}, (err, foundClient) => {
 			if(err){console.log('----------ERROR---------', err);}
 			else{
 				console.log('---------------FOUND ARTIST----------', foundArtist);
@@ -213,11 +222,14 @@ router.get('/:id', (req, res) => {
 					artist:foundArtist,
 					username: req.session.username,
 					session: req.session.logged,
-					user: req.body.userType
+					user: req.session,
+					client: foundClient,
+					artistId: foundArtistId
 				})
 			}
 		})
-})
+	});
+});
 // ******************** SHOW ROUTE EMAIL ******************** //
 router.get('/:id/email', (req, res) => {
 	Artist.findById(req.params.id,
@@ -233,7 +245,10 @@ router.get('/:id/email', (req, res) => {
 				})
 			}
 		})
-})
+
+	})
+
+});
 // ******************** CREATE ROUTE ******************** //
 router.post('/', (req, res) => {
 	Client.findById(req.body.clientId, (err, foundClient) => {
@@ -248,7 +263,7 @@ router.post('/', (req, res) => {
 			}
 		)
 	})
-})
+});
 // ******************** DESTROY ROUTE ******************** //
 router.delete('/:id', (req, res) => {
 	Artist.findByIdAndDelete(req.params.id,
@@ -259,22 +274,29 @@ router.delete('/:id', (req, res) => {
 					res.redirect('/artists');
 			}
 		})
-})
+});
 // ******************** EDIT ROUTE ******************** //
 router.get('/:id/edit', (req, res) => {
 	Artist.findById(req.params.id, 
 		(err, editArtist) => {
+			Artist.findOne({username: req.session.username}, (err, foundArtist) => {
+			Client.findOne({username: req.session.username}, (err, foundClient) => {
 			if(err){console.log('--------ERROR--------', err);}
 			else{
 				console.log('--------------EDIT ARTIST', editArtist);
 					res.render('../views/artists/edit.ejs',{
 						artist:editArtist,
 						username: req.session.username,
-						session: req.session.logged
+						session: req.session.logged,
+						client: foundClient,
+						artistId: foundArtist
+
 					})
 			}
 	})
 })
+});
+});
 router.put('/:id', (req, res) => {
 	Artist.findByIdAndUpdate(req.params.id, req.body,
 		(err, updateArtist) => {
@@ -284,9 +306,9 @@ router.put('/:id', (req, res) => {
 					    res.redirect('/artists')
 
 				}
-		})
+		});
 	
-})
+});
 // ******************** UPDATE ROUTE ******************** //
 router.put('/:id', (req, res) => {
 	console.log('----------------------------------------req.body in artist put route:');
@@ -311,7 +333,7 @@ router.put('/:id', (req, res) => {
 				
 		});
 	})
-})
+});
 
 	// Artist.findByIdAndUpdate(req.params.id, req.body,
 	// 	(err, updateArtist) => {

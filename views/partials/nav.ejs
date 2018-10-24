@@ -18,9 +18,9 @@
 				<div class="col">
 					<a href="http://localhost:3000/artists">Artists</a>
 				</div>
-				<div class="col">
+<!-- 				<div class="col">
 					<a href="http://localhost:3000/clients">Clients</a>
-				</div>
+				</div> -->
 
 				<% if (session) { -%>
 					
@@ -32,15 +32,20 @@
 					
 					<div class="col col-reg">
 						<a href="http://localhost:3000/auth/login">Register/Login</a>
-						
 					</div>
 					
 				<% } -%>
 
-				
-				<div class="col col-username">
-					<h3><%=username%></h3>
+				<% if (client) { -%>
+				<div class="col col-client">
+					<h3><a href="http://localhost:3000/clients/<%=client.id%>"><%=username%></a></h3>
+					
+				<% } else if (artistId) { -%>
+				<div class="col col-artist">
+					<h3><a href="http://localhost:3000/artists/<%=artistId.id%>"><%=username%></a></h3>
 				</div>
+					
+				<% } -%>
  
 		</div>
 </div>

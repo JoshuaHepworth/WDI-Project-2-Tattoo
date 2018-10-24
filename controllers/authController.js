@@ -9,12 +9,18 @@ const jquery = require('jquery')
 router.get('/login', (req, res) => {
   // ON EVERY SINGLE ROUTE IN THE WHOLE ENTIRE APPLICATION
   // you have attached to req a new property called session
+  Client.findOne({username: req.session.username}, (err, foundClient) => {
+    Artist.findOne({username: req.session.username}, (err, foundArtist) => {
   res.render('auth/login.ejs', {
     message: req.session.message,
     username: req.session.username,
-    session: req.session.logged
+    session: req.session.logged,
+    client: foundClient,
+    artistId: foundArtist
   });
 });
+})
+})
 
 router.post('/register', async (req, res) => {
 
@@ -68,7 +74,7 @@ router.post('/register', async (req, res) => {
   const artistEntry = {};
   artistEntry.username = req.body.username;
   artistEntry.password = passwordHash;
-  artistEntry.name = req.body.username
+  artistEntry.name = req.body.name
   artistEntry.city = req.body.city
   artistEntry.yearsExp = req.body.yearsExp
 
@@ -110,19 +116,15 @@ router.post('/login', async (req, res) => {
           const foundArtist = await Artist.findOne({username: req.body.username});
           const foundClient = await Client.findOne({username: req.body.username});
           console.log(foundClient)
+          console.log(foundArtist)
 
-          if(foundClient || foundArtist){
+          if(foundClient){
           // if the users exists use the bcrypt compare password
           //to make sure the passwords match
-            if(bcrypt.compareSync(req.body.password, foundClient.password || foundArtist.password)){
+            if(bcrypt.compareSync(req.body.password, foundClient.password)){
               req.session.logged = true;
               req.session.username = req.body.username;
               req.session.password = req.body.password;
-              
-              // ../partials/nav.ejs
-              // store username in session
-              // and/or user id
-
               res.redirect('/artists')
 
             } else {
@@ -131,20 +133,32 @@ router.post('/login', async (req, res) => {
               res.redirect('/auth/login')
             }
 
+ 
+        } else if (foundArtist){
+          // if the users exists use the bcrypt compare password
+          //to make sure the passwords match
+            if(bcrypt.compareSync(req.body.password, foundArtist.password)){
+              req.session.logged = true;
+              req.session.username = req.body.username;
+              req.session.password = req.body.password;
+              
+              res.redirect('/artists')
 
+            } else {
+
+              req.session.message = 'Username or Password is Wrong';
+              res.redirect('/auth/login')
+            }
+
+ 
         } else {
               req.session.message = 'Username or Password is Wrong';
               res.redirect('/auth/login')
-        } // end of foundUser
+        };//end of first session check
 
-
-  } catch(err) {
+    } catch(err) {
     res.send('error')
   }
-
-
-
-
 });
 
 
@@ -167,3 +181,4 @@ router.get('/logout', (req, res) => {
 
 
 module.exports = router;
+
