@@ -230,24 +230,29 @@ router.get('/:id', (req, res) => {
 		})
 	});
 });
+})
+
 // ******************** SHOW ROUTE EMAIL ******************** //
 router.get('/:id/email', (req, res) => {
-	Artist.findById(req.params.id,
-		(err, foundArtist) => {
-			if(err){console.log('----------ERROR---------', err);}
-			else{
-				console.log('---------------FOUND ARTIST----------', foundArtist);
-				res.render('artists/email.ejs',{
-					artist:foundArtist,
-					username: req.session.username,
-					session: req.session.logged,
-					user: req.body.userType
-				})
-			}
-		})
-
-	})
-
+    Artist.findById(req.params.id,
+        (err, foundArtist) => {
+            Client.findOne({username: req.session.username}, (err, foundClient) => {
+                Artist.findOne({username: req.session.username}, (err, foundArtistId) => {
+            if(err){console.log('----------ERROR---------', err);}
+            else{
+                console.log('---------------FOUND ARTIST----------', foundArtist);
+                res.render('artists/email.ejs',{
+                    artist:foundArtist,
+                    username: req.session.username,
+                    session: req.session.logged,
+                    user: req.body.userType,
+                    client: foundClient,
+                    artistId: foundArtistId
+                    })
+                }
+            })
+        });
+    });
 });
 // ******************** CREATE ROUTE ******************** //
 router.post('/', (req, res) => {
