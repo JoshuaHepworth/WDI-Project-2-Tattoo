@@ -42,9 +42,9 @@ router.get('/new', (req, res) => {
 					session: req.session.logged,
 					artistId: foundArtist
 				})
-		}
+			}
+		})
 	})
-})
 })
 
 router.get('/seed', (req, res) => {
@@ -289,7 +289,7 @@ router.get('/:id/edit', (req, res) => {
 			if(err){console.log('--------ERROR--------', err);}
 			else{
 				console.log('--------------EDIT ARTIST', editArtist);
-					res.render('../views/artists/edit.ejs',{
+					res.render('artists/edit.ejs',{
 						artist:editArtist,
 						username: req.session.username,
 						session: req.session.logged,
@@ -297,10 +297,10 @@ router.get('/:id/edit', (req, res) => {
 						artistId: foundArtist
 
 					})
-			}
-	})
-})
-});
+				}
+			})
+		})
+	});
 });
 router.put('/:id', (req, res) => {
 	Artist.findByIdAndUpdate(req.params.id, req.body,
@@ -314,6 +314,56 @@ router.put('/:id', (req, res) => {
 		});
 	
 });
+
+router.post('/:id/newTat', (req, res) => {
+	Artist.findById(req.params.id,
+		(err, addPhoto) => {
+			Artist.findOne({username: req.session.username}, (err, foundArtist) => {
+					Artist.push(addPhoto, (err, addPhoto) => {
+							if(err){console.log('-----------------ERROR-----------', err);}
+							else{
+								console.log('----------------ADDED PHOTO-----------------', addPhoto);
+								Artist.save();
+								res.redirect('artists/:id/show.ejs',{
+									artist: foundArtist,
+									urls: addPhoto
+								})
+							}
+					})
+			})	
+		})
+})
+/// post route for adding photos to artist
+// .post /artists/:artistId/newtat
+// find artist
+// push in tat url to their array
+// artist.save
+// redirect to wherever (show page?)
+
+// ******************** EDIT ADD NEW PHOTO ROUTE ******************** //
+router.get('/:id/newtat', (req, res) => {
+	Artist.findById(req.params.id, 
+		(err, editArtist) => {
+			Artist.findOne({username: req.session.username}, (err, foundArtist) => {
+			Client.findOne({username: req.session.username}, (err, foundClient) => {
+			if(err){console.log('--------ERROR--------', err);}
+			else{
+				console.log('--------------EDIT ARTIST', editArtist);
+					res.render('artists/newTat.ejs',{
+						artist:editArtist,
+						username: req.session.username,
+						session: req.session.logged,
+						client: foundClient,
+						artistId: foundArtist
+
+					})
+				}
+			})
+		})
+	});
+});
+
+
 // ******************** UPDATE ROUTE ******************** //
 router.put('/:id', (req, res) => {
 	console.log('----------------------------------------req.body in artist put route:');

@@ -1,22 +1,29 @@
-/*body {
-	background-color: #ffdfba;
-}*/
+body {
+	font-family: 'Miltonian Tattoo', cursive;
+
+	background-color: beige;
+}
 
 h1{
+	font-family: 'Miltonian Tattoo', cursive;
+
 	text-align: center;
 }
 .col {
+	font-family: 'Miltonian Tattoo', cursive;
+
 	text-align: center;
 	box-shadow: 0 4px 5px -2px gray;
-	-webkit-transition: width 2s; /* Safari */
-    transition: width 2s;
 }
 .col:hover{
-    width: 200px;
 	box-shadow: 0 10px 10px -2px gray;
 
 }
 .artistCarousel {
 	background-color: lightblue;
 	max-width:50%;
+}
+.col{
+font-family: 'Miltonian Tattoo', cursive;
+
 }
