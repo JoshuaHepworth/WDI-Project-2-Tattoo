@@ -4,6 +4,7 @@
 	<title></title>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="/assets/styles.css">
+	<link href="https://fonts.googleapis.com/css?family=Miltonian+Tattoo" rel="stylesheet">
 </head>
 <body>
 
@@ -12,7 +13,7 @@
 	<br>
 	<h2></h2>
 
-
+<div class="artistList">
 		<!--show dropdown menu for the cities that the artists are from
 			only let city be shown once, no repeats if more than one artist is from the same city -->
 		<select class="city" name="city" id="cityDropDown">
@@ -23,8 +24,6 @@
             <% }) %>
 		</select>
 
-
-
 	
         <% for(let i = 0; i < artists.length; i++){ %>
          
@@ -33,10 +32,14 @@
 
          
       <% } %>
-    
-
-	<!-- <a href="http://localhost:3000/">Home</a> -->
+</div>
 	<br>
+
+
+
+
+	
+
 	<script>
 		//if city is clicked, show artists from that city and hide others.
 		$(".city").on("change", () => {
@@ -45,4 +48,5 @@
 })
 	</script>
 </body>
+
 </html>

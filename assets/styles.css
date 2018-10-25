@@ -1,22 +1,59 @@
-/*body {
-	background-color: #ffdfba;
-}*/
+body {
+
+    font-family: 'Miltonian Tattoo', cursive;
+
+    background-color: beige;
+}
 
 h1{
-	text-align: center;
+    font-family: 'Miltonian Tattoo', cursive;
+
+    text-align: center;
 }
 .col {
-	text-align: center;
-	box-shadow: 0 4px 5px -2px gray;
-	-webkit-transition: width 2s; /* Safari */
-    transition: width 2s;
+    font-family: 'Miltonian Tattoo', cursive;
+    text-align: center;
+    box-shadow: 0 4px 5px -2px gray;
 }
 .col:hover{
-    width: 200px;
-	box-shadow: 0 10px 10px -2px gray;
+    box-shadow: 0 10px 10px -2px gray;
 
 }
 .artistCarousel {
-	background-color: lightblue;
-	max-width:50%;
+    background-color: lightblue;
+    max-width:50%;
+}
+.col{
+font-family: 'Miltonian Tattoo', cursive;
+
+}
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+.artistList{
+    border-bottom: 1px solid black;
+    text-align:center;
+}
+.loginDiv{
+    border-bottom: 1px solid black;
+    text-align: center;
+}
+.ad{
+
+    background: gray; 
+    color: #fff; 
+    line-height: 90px; 
+    text-align: center
+}
+.navDiv{
+    position: fixed;
+    display: inline;
+    align-items: center;
+    width: relative;
+}
+input:focus {
+    background-color:#BCFFF6;
 }

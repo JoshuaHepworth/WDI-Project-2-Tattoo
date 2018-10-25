@@ -11,6 +11,7 @@ router.get('/login', (req, res) => {
   // you have attached to req a new property called session
   Client.findOne({username: req.session.username}, (err, foundClient) => {
     Artist.findOne({username: req.session.username}, (err, foundArtist) => {
+
       res.render('auth/login.ejs', {
         message: req.session.message,
         username: req.session.username,
@@ -87,7 +88,7 @@ router.post('/register', async (req, res, next) => {
   }
 
 });
-/**/
+
 router.post('/login', async (req, res) => {
   //first query the database to see if the user exists
   try {   
