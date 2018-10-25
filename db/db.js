@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
 
-// const connectionString = 'mongodb://localhost/tattooApp3';
-
 const connectionString = 'mongodb://localhost/tattooApp4';
 
 mongoose.connect(connectionString, { useNewUrlParser: true});

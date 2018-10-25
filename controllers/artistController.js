@@ -75,7 +75,6 @@ router.get('/new', (req, res) => {
 })
 
 
-
 router.get('/seed', (req, res) => {
     Artist.create(
         [
@@ -269,14 +268,11 @@ router.get('/:id', (req, res) => {
 						client: foundClient,
 						artistId: foundArtistId
 					})
-
-					})
 				})
 			})
 		})
 
-
-
+	});
 
 // ******************** SHOW ROUTE EMAIL ******************** //
 router.get('/:id/email', (req, res) => {
@@ -389,6 +385,7 @@ router.get('/:id/edit', (req, res) => {
 				}
 			})
 		})
+
 	})
 })
 
