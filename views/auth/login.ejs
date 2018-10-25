@@ -9,6 +9,7 @@
 <% include ../partials/nav.ejs %>
 <br>
 <br>
+<div class="loginDiv">
   <h3>Register</h3> <small><%=message%></small>
   <form action="/auth/register" method="POST">
   <% include ../partials/checkbox.ejs %>
@@ -25,8 +26,10 @@
     <input placeholder="password" type="password" name="password">
     <button type="submit">Login</button>
   </form>
+</div>
 
 
 
 </body>
+
 </html>

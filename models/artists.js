@@ -6,7 +6,7 @@ const artistSchema = new mongoose.Schema({
 	name: String,
 	city: String,
 	yearsExp: Number,
-	urls: [{type: mongoose.SchemaTypes.Url}],
+	urls: [String],
 	username: String,
 	password: String
 	// work: [tats],

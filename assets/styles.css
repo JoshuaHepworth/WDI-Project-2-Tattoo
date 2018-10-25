@@ -1,4 +1,5 @@
 body {
+
 	font-family: 'Miltonian Tattoo', cursive;
 
 	background-color: beige;
@@ -11,7 +12,6 @@ h1{
 }
 .col {
 	font-family: 'Miltonian Tattoo', cursive;
-
 	text-align: center;
 	box-shadow: 0 4px 5px -2px gray;
 }
@@ -26,4 +26,25 @@ h1{
 .col{
 font-family: 'Miltonian Tattoo', cursive;
 
+}
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+.artistList{
+	border-bottom: 1px solid black;
+	text-align:center;
+}
+.loginDiv{
+	border-bottom: 1px solid black;
+	text-align: center;
+}
+.ad{
+
+	background: gray; 
+	color: #fff; 
+	line-height: 90px; 
+	text-align: center
 }
