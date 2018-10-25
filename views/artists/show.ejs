@@ -6,24 +6,14 @@
 	<link href="https://fonts.googleapis.com/css?family=Miltonian+Tattoo" rel="stylesheet">
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+	<body>
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
       <div class="container">
         
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"> 
-	<% include ../partials/nav.ejs %>
-	 <i class="fas fa-bars"></i>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-	<header class="masthead" style="background-image: url('img/home-bg.jpg')">
-      <!-- <div class="overlay"></div> -->
-      <div class="container"></div>
-        <div class="row"></div>
-          <div class="col-lg-8 col-md-10 mx-auto"></div>
-            <div class="site-heading"></div>
-
+<% include ../partials/nav.ejs %>
+	 
 			
-			<img style="height: 25%; width: 25%" src="<%=artist.urls%>">
 
 
 
@@ -32,14 +22,24 @@
         </div>
       </div>
     </nav>
+	
 	<h1>Individual Artist Show Page</h1>
+	<header class="masthead" style="background-image: url('img/home-bg.jpg')">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <div class="site-heading">
+
 <div class="artistList">
-	<%=artist.name%>
+
+	<h1><%=artist.name%></h1>
 	<br>
-	<%=artist.city%>
+	<h2><%=artist.city%></h2>
 	<br>
-	<%=artist.yearsExp%>
+	<h4>experience</h4><%=artist.yearsExp%><h6>years</h6>
 	<br>
+			<img style="height: 25%; width: 25%" src="<%=artist.urls%>">
 	<br>
 
 	<a href="/artists/<%=artist.id%>/edit">Edit Artist</a>
@@ -49,11 +49,16 @@
 	<a href="/artists/<%=artist.id%>/newtat">Add New Photo</a>
     <form action="/artists/<%=artist.id%>?_method=PUT" method="POST">
     	Add to Favorites: <input type="submit" name="favArtist">
-    </form>
+    </form><br>
 	<form action="/artists/<%=artist.id%>?_method=DELETE" method="POST">
 		Delete Artist:<input type="submit" name="Delete Artist">
-	</form>
+	</form><br>
 	<a href="http://localhost:3000/artists/<%=artist.id%>/email">Email Artist to Schedule Appointment</a>
+	 </div>
+          </div>
+        </div>
+      </div>
+    </header>
 
 </body>
 
