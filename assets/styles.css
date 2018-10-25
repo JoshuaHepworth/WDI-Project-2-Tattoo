@@ -13,10 +13,11 @@ h1{
 .col {
 	font-family: 'Miltonian Tattoo', cursive;
 	text-align: center;
-	box-shadow: 0 4px 5px -2px gray;
-}
+	
+/*	box-shadow: 0 4px 5px -2px gray;
+*/}
 .col:hover{
-	box-shadow: 0 10px 10px -2px gray;
+	/*box-shadow: 0 10px 10px -2px gray;*/
 
 }
 .artistCarousel {
