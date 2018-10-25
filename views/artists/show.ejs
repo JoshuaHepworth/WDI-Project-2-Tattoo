@@ -16,8 +16,13 @@
 	<%=artist.yearsExp%>
 	<br>
 	<br>
-			
-			<img style="height: 25%; width: 25%" src="<%=artist.urls%>">
+                 
+            <% artist.urls.forEach((elem, i) => {%>
+              
+                   <img style="height: 20%; width: 20%" src="<%=artist.urls[i]%>">
+              
+            <% }) %>
+                 
 
 
 

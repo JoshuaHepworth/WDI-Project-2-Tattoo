@@ -316,18 +316,18 @@ router.post('/', (req, res) => {
 });
 
 
-router.post('/:id/newTat',(req, res) => {
-	Artist.findByIdAndUpdate(req.params.id,(err, foundArtist) => {
-			foundArtist.push({urls:req.body.urls}, (err, addedPhoto) => {
-					if(err){console.log('------ERROR------', err);}
-						else{
-							console.log('----------------------ADDED PHOTO---------------', addedPhoto);
-								res.redirect('artists/show.ejs',{
-									artist:foundArtist,
-									urls: addedPhoto
-							})
-					}
-			})
+router.put('/:id/newTat',(req, res) => {
+	Artist.findById(req.params.id, (err, foundArtist) => {
+		foundArtist.urls.push(req.body.urls);
+		foundArtist.save((err, addedPhoto) => {
+			if(err){
+				console.log('------ERROR------', err);
+			}
+			else{
+				console.log('----------------------ADDED PHOTO---------------', addedPhoto);
+				res.redirect('/artists/' + foundArtist.id)
+			}
+		})
 	})
 })
 
@@ -394,9 +394,9 @@ router.put('/:id', (req, res) => {
 	Artist.findByIdAndUpdate(req.params.id, req.body,
 		(err, updateArtist) => {
 				if(err){console.log('--------------ERROR------------', err);}
-					else{
-						console.log('--------------UPDATE ARTIST------------', updateArtist);
-						    res.redirect('/artists')
+				else{
+					console.log('--------------UPDATE ARTIST------------', updateArtist);
+				    res.redirect('/artists')
 
 				}
 		});

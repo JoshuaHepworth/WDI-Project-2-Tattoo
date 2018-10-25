@@ -8,6 +8,7 @@
 <body>
 	<% include ../partials/nav.ejs %>
 	<h1>Edit Artist Information</h1>
+	<div class='artistList'>
 	<h2><%=artist.name%></h2>
 		<form action ="/artists/<%=artist.id%>?_method=PUT" method="POST">
 			Name: <input type="text" name="name" value="<%=artist.name%>"><br>
@@ -15,5 +16,6 @@
 			Years Tatooing: <input type="text" name="yearsExp" value="<%=artist.yearsExp%>"><br>
 			<input type="submit" name="Edit New Artist">
 		</form>
+	</div>
 </body>
 </html>

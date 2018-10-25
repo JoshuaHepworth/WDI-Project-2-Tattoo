@@ -23,8 +23,8 @@ h1{
 	background-color: lightblue;
 	max-width:50%;
 }
-.col{
-font-family: 'Miltonian Tattoo', cursive;
+.col-sm{
+text-align: center;
 
 }
 ul {
