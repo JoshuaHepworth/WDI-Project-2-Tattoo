@@ -6,6 +6,7 @@ const session = require('express-session');
 const Artist = require('./models/artists')
 const Client = require('./models/clients')
 const jquery = require('jquery')
+// const bootstrap = require('bootstrap')
 const PORT = 3000;
 
 require('./db/db');
