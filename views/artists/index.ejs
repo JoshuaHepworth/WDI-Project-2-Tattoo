@@ -16,34 +16,40 @@
 <div class="artistList">
 		<!--show dropdown menu for the cities that the artists are from
 			only let city be shown once, no repeats if more than one artist is from the same city -->
-		<select name="city" id="cityDropDown">
-		           <%artists.forEach((elem, i) => {%>
-		                <option value="<%=elem.city%>"><%=elem.city%></option>    
-		            <%})%>
+		<select class="city" name="city" id="cityDropDown">
+            <% cities.forEach((elem, i) => {%>
+                <option class="result" value="<%=elem%>"><%=elem%></option>
+            <% if (artists.city === elem) { -%>
+            	<%=artists.name%>
+            <% } else { -%>
+            	<h4>try again</h4>
+            <% } -%>
+              
+            <% }) %>
 		</select>
 
-
-
-
-	<ul>
+	
         <% for(let i = 0; i < artists.length; i++){ %>
-         <li>
-           <a href="/artists/<%=artists[i].id%>"><%=artists[i].name %></a>
-         </li>
+         
+           <a href="/artists/<%=artists[i].id%>"><br><br><%=artists[i].name %><br>
+
+         
       <% } %>
     </ul>
 </div>
-	<!-- <a href="http://localhost:3000/">Home</a> -->
 	<br>
 
 
-	<!-- <a href="http://localhost:3000/artists/new">New Artist</a> -->
 
 
 	
+
 	<script>
-		//jquery for removing duplicates in dropdown menu
-		
+		//if city is clicked, show artists from that city and hide others.
+		$("$citiesTwo").on("change", () => {
+  			$(artists).hide()
+    
+})
 	</script>
 </body>
 

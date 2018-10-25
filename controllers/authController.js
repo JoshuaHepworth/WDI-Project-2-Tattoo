@@ -11,17 +11,20 @@ router.get('/login', (req, res) => {
   // you have attached to req a new property called session
   Client.findOne({username: req.session.username}, (err, foundClient) => {
     Artist.findOne({username: req.session.username}, (err, foundArtist) => {
-  res.render('auth/login.ejs', {
-    message: req.session.message,
-    username: req.session.username,
-    session: req.session.logged,
-    client: foundClient,
-    artistId: foundArtist
-  });
-});
-})
+
+      res.render('auth/login.ejs', {
+        message: req.session.message,
+        username: req.session.username,
+        session: req.session.logged,
+        client: foundClient,
+        artistId: foundArtist
+      });
+    });
+  })
+
 })
 
+/**/
 router.post('/register', async (req, res, next) => {
   try {
 

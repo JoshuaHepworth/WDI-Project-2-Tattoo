@@ -3,18 +3,19 @@
 <head>
 	<title></title>
 <link href="https://fonts.googleapis.com/css?family=Miltonian+Tattoo" rel="stylesheet">
+
 </head>
 <body>
 <% include partials/nav.ejs %>
 <h1>Home</h1><br>
-<div>
+<div class='container'>
 	<ul>
-      	<% for(let i = 0; i < Math.floor(Math.random(artists.name)); i++){ %>
-         <li>
-           <a href="/artists/<%=artists[i].id%>"><%=artists[i].name %></a>
-         </li>
-      <% } %>
-    </ul>
+      	<% for(let i = 0; i < artists.length; i++){ %>
+         <div>
+            <img style="height: 25%; width: 25%" src="<%=artists[i].urls%>">
+         </div><br>
+        <% } %>
+    </div>
 </div>
 
 </body>

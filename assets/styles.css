@@ -48,3 +48,13 @@ ul {
 	line-height: 90px; 
 	text-align: center
 }
+.navDiv{
+	position: fixed;
+	display: inline;
+	align-items: center;
+	width: relative;
+}
+input:focus {
+	background-color:#BCFFF6;
+}
+

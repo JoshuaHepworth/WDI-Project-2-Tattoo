@@ -11,8 +11,32 @@ const mongooseUrl = require('mongoose-type-url');
 router.get('/', (req, res) => {
 	Artist.find({},
 		(err, allArtists) => {
+				let uniqueCity = []
+				let $uniqueCityTwo = uniqueCity
+				let artistCities = [];
+				for (let i = 0; i < allArtists.length; i++) {
+					 artistCities.push(allArtists[i].city)
+				};
+				
+				for (let i = 0; i < artistCities.length; i++){
+					if(uniqueCity.length === 0) {
+						uniqueCity.push(artistCities[i])
+					} else {
+						for (let j = 0; j < uniqueCity.length; j++) {
+							//if uniqueCity j euqals artistCities i then dont do ANYTHING
+							//if its NOT equal then push
+							if(uniqueCity.findIndex((city) => {
+								return city === artistCities[i] 
+							}) === -1){
+								uniqueCity.push(artistCities[i]);
+							}
+						}
+					}
+				}
 			Artist.findOne({username: req.session.username}, (err, foundArtist) => {
 			Client.findOne({username: req.session.username}, (err, foundClient) => {
+
+
 			// if(err){console.log('--------ERROR--------', err);}
 			// else{
 				// console.log('----------ALL ARTISTS--------');
@@ -21,7 +45,9 @@ router.get('/', (req, res) => {
 					username: req.session.username,
 					session: req.session.logged,
 					client: foundClient,
-					artistId: foundArtist
+					artistId: foundArtist,
+					cities: uniqueCity,
+					$citiesTwo: $uniqueCityTwo
 				})
 			})
 		}
@@ -48,165 +74,180 @@ router.get('/new', (req, res) => {
 })
 
 router.get('/seed', (req, res) => {
-	Artist.create(
-		[
-		  {
-		    name: 'Bo Jackson',
-		    city: 'Chicago',
-		    yearsExp: 20,
-		    // work: [tats],
-		    // clients: [client],
-		    // appointments: [appointments]
-		    
-		    // tattoos: [tatoos],
-		    // appointments: [appointments]
-		  },{
-		    name: 'Brian Esparza',
-		    city: 'Chicago',
-		    yearsExp: 6,
-		    // work: [tats],
-		    // clients: [client],
-		    // appointments: [appointments]
-		    
-		    // tattoos: [tatoos],
-		    // appointments: [appointments]
-		  },{
-		    name: 'Luke Xan',
-		    city: 'Denver',
-		    yearsExp: 15,
-		    // work: [tats],
-		    // clients: [client],
-		    // appointments: [appointments]
-		    
-		    // tattoos: [tatoos],
-		    // appointments: [appointments]
-		  },{
-		    name: 'Bill Nye the Tatto Guy',
-		    city: 'Austin',
-		    yearsExp: 30,
-		    // work: [tats],
-		    // clients: [client],
-		    // appointments: [appointments]
-		    
-		    // tattoos: [tatoos],
-		    // appointments: [appointments]
-		  },{
-		    name: 'Joe CRUD',
-		    city: 'Dallas',
-		    yearsExp: 12,
-		    // work: [tats],
-		    // clients: [client],
-		    // appointments: [appointments]
-		    
-		    // tattoos: [tatoos],
-		    // appointments: [appointments]
-		  },{
-		    name: 'Bob Lee Swagger',
-		    city: 'Austin',
-		    yearsExp: 4,
-		    // work: [tats],
-		    // clients: [client],
-		    // appointments: [appointments]
-		    
-		    // tattoos: [tatoos],
-		    // appointments: [appointments]
-		  },{
-		    name: 'Katrina Zey',
-		    city: 'Denver',
-		    yearsExp: 17,
-		    // work: [tats],
-		    // clients: [client],
-		    // appointments: [appointments]
-		    
-		    // tattoos: [tatoos],
-		    // appointments: [appointments]
-		  },{
-		    name: 'Zoey Foyd',
-		    city: 'Chicago',
-		    yearsExp: 8,
-		    // work: [tats],
-		    // clients: [client],
-		    // appointments: [appointments]
-		    
-		    // tattoos: [tatoos],
-		    // appointments: [appointments]
-		  },{
-		    name: 'Jill Stein',
-		    city: 'Austin',
-		    yearsExp: 24,
-		    // work: [tats],
-		    // clients: [client],
-		    // appointments: [appointments]
-		    
-		    // tattoos: [tatoos],
-		    // appointments: [appointments]
-		  },{
-		    name: 'Bo Burnham',
-		    city: 'Denver',
-		    yearsExp: 13,
-		    // work: [tats],
-		    // clients: [client],
-		    // appointments: [appointments]
-		    
-		    // tattoos: [tatoos],
-		    // appointments: [appointments]
-		  },{
-		    name: 'Sal Rosenberg',
-		    city: 'Chicago',
-		    yearsExp: 4,
-		    // work: [tats],
-		    // clients: [client],
-		    // appointments: [appointments]
-		    
-		    // tattoos: [tatoos],
-		    // appointments: [appointments]
-		  },{
-		    name: 'Morgan Freeman',
-		    city: 'Chicago',
-		    yearsExp: 40,
-		    // work: [tats],
-		    // clients: [client],
-		    // appointments: [appointments]
-		    
-		    // tattoos: [tatoos],
-		    // appointments: [appointments]
-		  },{
-		    name: 'Angel Swanson',
-		    city: 'San Francisco',
-		    yearsExp: 27,
-		    // work: [tats],
-		    // clients: [client],
-		    // appointments: [appointments]
-		    
-		    // tattoos: [tatoos],
-		    // appointments: [appointments]
-		  },{
-		    name: 'Filip Tatarnik',
-		    city: 'Chicago',
-		    yearsExp: 0,
-		    // work: [tats],
-		    // clients: [client],
-		    // appointments: [appointments]
-		    
-		    // tattoos: [tatoos],
-		    // appointments: [appointments]
-		  },{
-		    name: 'Josh Hepworth',
-		    city: 'Chicago',
-		    yearsExp: 0,
-		    // work: [tats],
-		    // clients: [client],
-		    // appointments: [appointments]
-		    
-		    // tattoos: [tatoos],
-		    // appointments: [appointments]
-		  }
-		],
-		(err, createdArtists) => {
-			console.log(createdArtists)
-			res.send(createdArtists)
-		}
-	)
+    Artist.create(
+        [
+          {
+            name: 'Bo Jackson',
+            city: 'Chicago',
+            yearsExp: 20,
+            urls: ['https://images.pexels.com/photos/807688/pexels-photo-807688.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=350']
+            // work: [tats],
+            // clients: [client],
+            // appointments: [appointments]
+            
+            // tattoos: [tatoos],
+            // appointments: [appointments]
+          },{
+            name: 'Brian Esparza',
+            city: 'Chicago',
+            yearsExp: 6,
+            urls: ['https://images.pexels.com/photos/951001/pexels-photo-951001.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=350']
+            // work: [tats],
+            // clients: [client],
+            // appointments: [appointments]
+            
+            // tattoos: [tatoos],
+            // appointments: [appointments]
+          },{
+            name: 'Luke Xan',
+            city: 'Denver',
+            yearsExp: 15,
+            urls: ['https://images.pexels.com/photos/428105/pexels-photo-428105.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=350']
+            // work: [tats],
+            // clients: [client],
+            // appointments: [appointments]
+            
+            // tattoos: [tatoos],
+            // appointments: [appointments]
+          },{
+            name: 'Bill Nye the Tatto Guy',
+            city: 'Austin',
+            yearsExp: 30,
+            urls: ['https://images.pexels.com/photos/38870/pexels-photo-38870.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=350']
+            // work: [tats],
+            // clients: [client],
+            // appointments: [appointments]
+            
+            // tattoos: [tatoos],
+            // appointments: [appointments]
+          },{
+            name: 'Joe CRUD',
+            city: 'Dallas',
+            yearsExp: 12,
+            urls: ['https://images.pexels.com/photos/163688/hiker-travel-trip-wander-163688.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=350']
+            // work: [tats],
+            // clients: [client],
+            // appointments: [appointments]
+            
+            // tattoos: [tatoos],
+            // appointments: [appointments]
+          },{
+            name: 'Bob Lee Swagger',
+            city: 'Austin',
+            yearsExp: 4,
+            urls: ['https://images.pexels.com/photos/1338730/pexels-photo-1338730.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=350']
+            // work: [tats],
+            // clients: [client],
+            // appointments: [appointments]
+            
+            // tattoos: [tatoos],
+            // appointments: [appointments]
+          },{
+            name: 'Katrina Zey',
+            city: 'Denver',
+            yearsExp: 17,
+            urls: ['https://images.pexels.com/photos/1327214/pexels-photo-1327214.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=350']
+            // work: [tats],
+            // clients: [client],
+            // appointments: [appointments]
+            
+            // tattoos: [tatoos],
+            // appointments: [appointments]
+          },{
+            name: 'Zoey Foyd',
+            city: 'Chicago',
+            yearsExp: 8,
+            urls: ['https://images.pexels.com/photos/277320/pexels-photo-277320.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940']
+            // work: [tats],
+            // clients: [client],
+            // appointments: [appointments]
+            
+            // tattoos: [tatoos],
+            // appointments: [appointments]
+          },{
+            name: 'Jill Stein',
+            city: 'Austin',
+            yearsExp: 24,
+            urls: ['https://images.pexels.com/photos/838696/pexels-photo-838696.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=350']
+            // work: [tats],
+            // clients: [client],
+            // appointments: [appointments]
+            
+            // tattoos: [tatoos],
+            // appointments: [appointments]
+          },{
+            name: 'Bo Burnham',
+            city: 'Denver',
+            yearsExp: 13,
+            urls: ['https://images.pexels.com/photos/248387/pexels-photo-248387.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=350']
+            // work: [tats],
+            // clients: [client],
+            // appointments: [appointments]
+            
+            // tattoos: [tatoos],
+            // appointments: [appointments]
+          },{
+            name: 'Sal Rosenberg',
+            city: 'Chicago',
+            yearsExp: 4,
+            urls: ['https://images.pexels.com/photos/428320/pexels-photo-428320.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=350']
+            // work: [tats],
+            // clients: [client],
+            // appointments: [appointments]
+            
+            // tattoos: [tatoos],
+            // appointments: [appointments]
+          },{
+            name: 'Morgan Freeman',
+            city: 'Chicago',
+            yearsExp: 40,
+            urls: ['https://images.pexels.com/photos/1913/iceland-person-arm-art.jpg?auto=compress&cs=tinysrgb&dpr=2&h=350']
+            // work: [tats],
+            // clients: [client],
+            // appointments: [appointments]
+            
+            // tattoos: [tatoos],
+            // appointments: [appointments]
+          },{
+            name: 'Angel Swanson',
+            city: 'San Francisco',
+            yearsExp: 27,
+            urls: ['https://images.pexels.com/photos/325152/pexels-photo-325152.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=350']
+            // work: [tats],
+            // clients: [client],
+            // appointments: [appointments]
+            
+            // tattoos: [tatoos],
+            // appointments: [appointments]
+          },{
+            name: 'Filip Tatarnik',
+            city: 'Chicago',
+            yearsExp: 0,
+            urls: ['https://images.pexels.com/photos/48805/tattoo-foot-skin-black-and-white-48805.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=350']
+            // work: [tats],
+            // clients: [client],
+            // appointments: [appointments]
+            
+            // tattoos: [tatoos],
+            // appointments: [appointments]
+          },{
+            name: 'Josh Hepworth',
+            city: 'Chicago',
+            yearsExp: 0,
+            urls: 'https://images.pexels.com/photos/1249214/pexels-photo-1249214.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'
+            // work: [tats],
+            // clients: [client],
+            // appointments: [appointments]
+            
+            // tattoos: [tatoos],
+            // appointments: [appointments]
+          }
+        ],
+        (err, createdArtists) => {
+            console.log(createdArtists)
+            res.send(createdArtists)
+        }
+    )
 });
 
 // ******************** SHOW ROUTE ******************** //
@@ -214,23 +255,24 @@ router.get('/:id', (req, res) => {
 	Artist.findById(req.params.id,
 		(err, foundArtist) => {
 			Artist.findOne({username: req.session.username}, (err, foundArtistId) => {
-			Client.findOne({username: req.session.username}, (err, foundClient) => {
-			if(err){console.log('----------ERROR---------', err);}
-			else{
-				console.log('---------------FOUND ARTIST----------', foundArtist);
-				res.render('artists/show.ejs',{
-					artist:foundArtist,
-					username: req.session.username,
-					session: req.session.logged,
-					user: req.session,
-					client: foundClient,
-					artistId: foundArtistId
-				})
-			}
+				Client.findOne({username: req.session.username}, (err, foundClient) => {
+					if(err){console.log('----------ERROR---------', err);}
+						else{
+							console.log('---------------FOUND ARTIST----------', foundArtist);
+							res.render('artists/show.ejs',{
+								artist:foundArtist,
+								username: req.session.username,
+								session: req.session.logged,
+								user: req.session,
+								client: foundClient,
+								artistId: foundArtistId
+					})
+				}
+			})
 		})
 	});
 });
-})
+
 
 // ******************** SHOW ROUTE EMAIL ******************** //
 router.get('/:id/email', (req, res) => {
@@ -238,21 +280,22 @@ router.get('/:id/email', (req, res) => {
         (err, foundArtist) => {
             Client.findOne({username: req.session.username}, (err, foundClient) => {
                 Artist.findOne({username: req.session.username}, (err, foundArtistId) => {
-            if(err){console.log('----------ERROR---------', err);}
-            else{
-                console.log('---------------FOUND ARTIST----------', foundArtist);
-                res.render('artists/email.ejs',{
-                    artist:foundArtist,
-                    username: req.session.username,
-                    session: req.session.logged,
-                    user: req.body.userType,
-                    client: foundClient,
-                    artistId: foundArtistId
+		            if(err){console.log('----------ERROR---------', err);}
+			            else{
+			                console.log('---------------FOUND ARTIST----------', foundArtist);
+			                res.render('artists/email.ejs',{
+			                    artist:foundArtist,
+			                    username: req.session.username,
+			                    session: req.session.logged,
+			                    user: req.body.userType,
+			                    client: foundClient,
+			                    artistId: foundArtistId
                     })
                 }
             })
         });
     });
+
 });
 // ******************** CREATE ROUTE ******************** //
 router.post('/', (req, res) => {
@@ -261,9 +304,9 @@ router.post('/', (req, res) => {
 			(err, createdArtist) => {
 				// foundClient.favArtist.push(createdArtist)
 				if(err){console.log('---------ERROR---------', err);}
-				else{
-					console.log('------------CREATED ARTIST----------', createdArtist);
-					res.redirect('/artists');
+					else{
+						console.log('------------CREATED ARTIST----------', createdArtist);
+						res.redirect('/artists');
 				}
 			}
 		)
@@ -271,20 +314,20 @@ router.post('/', (req, res) => {
 });
 
 
-// router.get('/:id/newTat',(req, res) => {
-// 	Artist.findByIdAndUpdate(req.params.id,(err, foundArtist) => {
-// 			Artist.push({urls:req.body.urls}, (err, addedPhoto) => {
-// 					if(err){console.log('------ERROR------', err);}
-// 					else{
-// 						console.log('----------------------ADDED PHOTO---------------', addedPhoto);
-// 							res.redirect('artists/show.ejs',{
-// 								artist:foundArtist,
-// 								urls: addedPhoto
-// 							})
-// 					}
-// 			})
-// 	})
-// })
+router.post('/:id/newTat',(req, res) => {
+	Artist.findByIdAndUpdate(req.params.id,(err, foundArtist) => {
+			foundArtist.push({urls:req.body.urls}, (err, addedPhoto) => {
+					if(err){console.log('------ERROR------', err);}
+						else{
+							console.log('----------------------ADDED PHOTO---------------', addedPhoto);
+								res.redirect('artists/show.ejs',{
+									artist:foundArtist,
+									urls: addedPhoto
+							})
+					}
+			})
+	})
+})
 
 // router.post('/:id/newTat', (req, res) => {
 // 	Artist.findById(req.params.id,
@@ -316,9 +359,9 @@ router.delete('/:id', (req, res) => {
 	Artist.findByIdAndDelete(req.params.id,
 		(err, deleteRoom) => {
 			if(err){console.log('--------ERROR-------');}
-			else{
-				console.log('--------------DELETED ARTISTS-----------');
-					res.redirect('/artists');
+				else{
+					console.log('--------------DELETED ARTISTS-----------');
+						res.redirect('/artists');
 			}
 		})
 });
@@ -327,16 +370,16 @@ router.get('/:id/edit', (req, res) => {
 	Artist.findById(req.params.id, 
 		(err, editArtist) => {
 			Artist.findOne({username: req.session.username}, (err, foundArtist) => {
-			Client.findOne({username: req.session.username}, (err, foundClient) => {
-			if(err){console.log('--------ERROR--------', err);}
-			else{
-				console.log('--------------EDIT ARTIST', editArtist);
-					res.render('artists/edit.ejs',{
-						artist:editArtist,
-						username: req.session.username,
-						session: req.session.logged,
-						client: foundClient,
-						artistId: foundArtist
+				Client.findOne({username: req.session.username}, (err, foundClient) => {
+					if(err){console.log('--------ERROR--------', err);}
+						else{
+							console.log('--------------EDIT ARTIST', editArtist);
+								res.render('artists/edit.ejs',{
+									artist:editArtist,
+									username: req.session.username,
+									session: req.session.logged,
+									client: foundClient,
+									artistId: foundArtist
 
 					})
 				}
@@ -348,9 +391,9 @@ router.put('/:id', (req, res) => {
 	Artist.findByIdAndUpdate(req.params.id, req.body,
 		(err, updateArtist) => {
 				if(err){console.log('--------------ERROR------------', err);}
-				else{
-					console.log('--------------UPDATE ARTIST------------', updateArtist);
-					    res.redirect('/artists')
+					else{
+						console.log('--------------UPDATE ARTIST------------', updateArtist);
+						    res.redirect('/artists')
 
 				}
 		});
@@ -370,16 +413,16 @@ router.get('/:id/newtat', (req, res) => {
 	Artist.findById(req.params.id, 
 		(err, editArtist) => {
 			Artist.findOne({username: req.session.username}, (err, foundArtist) => {
-			Client.findOne({username: req.session.username}, (err, foundClient) => {
-			if(err){console.log('--------ERROR--------', err);}
-			else{
-				console.log('--------------EDIT ARTIST', editArtist);
-					res.render('artists/newTat.ejs',{
-						artist:editArtist,
-						username: req.session.username,
-						session: req.session.logged,
-						client: foundClient,
-						artistId: foundArtist
+				Client.findOne({username: req.session.username}, (err, foundClient) => {
+					if(err){console.log('--------ERROR--------', err);}
+						else{
+							console.log('--------------EDIT ARTIST', editArtist);
+								res.render('artists/newTat.ejs',{
+									artist:editArtist,
+									username: req.session.username,
+									session: req.session.logged,
+									client: foundClient,
+									artistId: foundArtist
 
 					})
 				}

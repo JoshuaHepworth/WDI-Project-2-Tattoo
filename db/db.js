@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const connectionString = 'mongodb://localhost/tattooApp1';
+const connectionString = 'mongodb://localhost/tattooApp4';
 mongoose.connect(connectionString, { useNewUrlParser: true});
 mongoose.connection.on('connected', () => {
   console.log('Mongoose connected at ', connectionString);
