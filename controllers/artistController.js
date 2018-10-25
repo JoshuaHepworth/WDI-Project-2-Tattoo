@@ -11,8 +11,32 @@ const mongooseUrl = require('mongoose-type-url');
 router.get('/', (req, res) => {
 	Artist.find({},
 		(err, allArtists) => {
+				let uniqueCity = []
+				let $uniqueCityTwo = uniqueCity
+				let artistCities = [];
+				for (let i = 0; i < allArtists.length; i++) {
+					 artistCities.push(allArtists[i].city)
+				};
+				
+				for (let i = 0; i < artistCities.length; i++){
+					if(uniqueCity.length === 0) {
+						uniqueCity.push(artistCities[i])
+					} else {
+						for (let j = 0; j < uniqueCity.length; j++) {
+							//if uniqueCity j euqals artistCities i then dont do ANYTHING
+							//if its NOT equal then push
+							if(uniqueCity.findIndex((city) => {
+								return city === artistCities[i] 
+							}) === -1){
+								uniqueCity.push(artistCities[i]);
+							}
+						}
+					}
+				}
 			Artist.findOne({username: req.session.username}, (err, foundArtist) => {
 			Client.findOne({username: req.session.username}, (err, foundClient) => {
+
+
 			// if(err){console.log('--------ERROR--------', err);}
 			// else{
 				// console.log('----------ALL ARTISTS--------');
@@ -21,7 +45,9 @@ router.get('/', (req, res) => {
 					username: req.session.username,
 					session: req.session.logged,
 					client: foundClient,
-					artistId: foundArtist
+					artistId: foundArtist,
+					cities: uniqueCity,
+					$citiesTwo: $uniqueCityTwo
 				})
 			})
 		}
@@ -214,22 +240,22 @@ router.get('/:id', (req, res) => {
 	Artist.findById(req.params.id,
 		(err, foundArtist) => {
 			Artist.findOne({username: req.session.username}, (err, foundArtistId) => {
-			Client.findOne({username: req.session.username}, (err, foundClient) => {
-			if(err){console.log('----------ERROR---------', err);}
-			else{
-				console.log('---------------FOUND ARTIST----------', foundArtist);
-				res.render('artists/show.ejs',{
-					artist:foundArtist,
-					username: req.session.username,
-					session: req.session.logged,
-					user: req.session,
-					client: foundClient,
-					artistId: foundArtistId
-				})
-			}
+				Client.findOne({username: req.session.username}, (err, foundClient) => {
+				if(err){console.log('----------ERROR---------', err);}
+				else{
+					console.log('---------------FOUND ARTIST----------', foundArtist);
+					res.render('artists/show.ejs',{
+						artist:foundArtist,
+						username: req.session.username,
+						session: req.session.logged,
+						user: req.session,
+						client: foundClient,
+						artistId: foundArtistId
+					})
+				}
+			})
 		})
-})
-})
+	})
 });
 // ******************** SHOW ROUTE EMAIL ******************** //
 router.get('/:id/email', (req, res) => {

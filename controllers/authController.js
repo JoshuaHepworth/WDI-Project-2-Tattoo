@@ -11,105 +11,83 @@ router.get('/login', (req, res) => {
   // you have attached to req a new property called session
   Client.findOne({username: req.session.username}, (err, foundClient) => {
     Artist.findOne({username: req.session.username}, (err, foundArtist) => {
-  res.render('auth/login.ejs', {
-    message: req.session.message,
-    username: req.session.username,
-    session: req.session.logged,
-    client: foundClient,
-    artistId: foundArtist
-  });
-});
+      res.render('auth/login.ejs', {
+        message: req.session.message,
+        username: req.session.username,
+        session: req.session.logged,
+        client: foundClient,
+        artistId: foundArtist
+      });
+    });
+  })
+
 })
-})
 
-router.post('/register', async (req, res) => {
-
-  // res.send(req.body)
-  if (req.body.userType === 'client') {
-      
-  const password = req.body.password;
-  const passwordHash = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
-  console.log(passwordHash)
-
-
-  const userEntry = {};
-  userEntry.username = req.body.username;
-  userEntry.password = passwordHash;
-  userEntry.name = req.body.username
-
-  const user = await Client.create(userEntry);
-  console.log(user);
-  // initializing the session here
-  // req.session.username = req.body.username;
-  req.session.logged   = true;
-  req.session.message  = '';
+/**/
+router.post('/register', async (req, res, next) => {
   try {
-    // if (userType === 'client') {
-          const foundClient = await Client.findOne({username: req.body.username});
-          console.log(foundClient)
 
-          if(foundClient){
-          // if the users exists use the bcrypt compare password
-          //to make sure the passwords match
-            if(bcrypt.compareSync(req.body.password, foundClient.password)){
-              req.session.logged = true;
-              req.session.username = req.body.username;
-              req.session.password = req.body.password;
-              
-              // ../partials/nav.ejs
-              // store username in session
-              // and/or user id
-            }  
-            }
-          } catch (err) {
-            res.send(err)
-          }
-  res.redirect('/artists');
-} if(req.body.userType === 'artist') {
+    // get and encrypt pasword
     const password = req.body.password;
-  const passwordHash = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
-  console.log(passwordHash)
+    const passwordHash = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+    console.log(passwordHash)
+
+    // make sure there is no client or artist with desired username
+    const foundClient = await Client.findOne({
+      username: req.body.username
+    });
+    const foundArtist = await Artist.findOne({
+        username: req.body.username
+    });
 
 
-  const artistEntry = {};
-  artistEntry.username = req.body.username;
-  artistEntry.password = passwordHash;
-  artistEntry.name = req.body.name
-  artistEntry.city = req.body.city
-  artistEntry.yearsExp = req.body.yearsExp
+    // if either one of those exists, 
+      // "username taken"
+      // session stuff
+      // redirect
 
-  const artist = await Artist.create(artistEntry);
-  console.log(artist);
-  // initializing the session here
-  // req.session.username = req.body.username;
-  req.session.logged   = true;
-  req.session.message  = '';
-  try {
-    // if (userType === 'client') {
-          const foundArtist = await Artist.findOne({username: req.body.username});
-          console.log(foundArtist)
+    // else { // username not taken
 
-          if(foundArtist){
-          // if the users exists use the bcrypt compare password
-          //to make sure the passwords match
-            if(bcrypt.compareSync(req.body.password, foundArtist.password)){
-              req.session.logged = true;
-              req.session.username = req.body.username;
-              req.session.password = req.body.password;
-              
-              // ../partials/nav.ejs
-              // store username in session
-              // and/or user id
-            }  
-            }
-          } catch (err) {
-            res.send(err)
-          }
-  res.redirect('/artists');
-}
+        if (req.body.userType === 'artist') {
+            // create artist db object
+            const artistEntry = {};
+            artistEntry.username = req.body.username;
+            artistEntry.password = passwordHash;
+            artistEntry.name = req.body.name
+            artistEntry.city = req.body.city
+            artistEntry.yearsExp = req.body.yearsExp
+
+            const artist = await Artist.create(artistEntry);
+            // console.log(artist);
+        }
+
+        else { // "req.body.userType" === 'client'
+          // create client db objectclient
+          const clientEntry = {};
+          clientEntry.username = req.body.username;
+          clientEntry.password = passwordHash;
+          clientEntry.name = req.body.username
+
+          const user = await Client.create(clientEntry);
+        }
+
+        // always set session
+        req.session.username = req.body.username;
+        req.session.logged = true;
+        req.session.message = '';
+
+        // always redirect
+        res.redirect('/artists');
+
+    // } // end username not taken
+
+  } 
+  catch (e) {
+    next(e);
+  }
+
 });
-
-
+/**/
 router.post('/login', async (req, res) => {
   //first query the database to see if the user exists
   try {   

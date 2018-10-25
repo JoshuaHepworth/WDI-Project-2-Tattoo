@@ -1,16 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title></title>
-  <link rel="stylesheet" type="text/css" href="/assets/styles.css">
-</head>
-<body>
+
 <% include ../partials/nav.ejs %>
 <br>
 <br>
   <h3>Register</h3> <small><%=message%></small>
   <form action="/auth/register" method="POST">
-  <% include ../partials/checkbox.ejs %>
+    <% include ../partials/checkbox.ejs %>
     <input placeholder="username" type="text" name="username">
     <input placeholder="password" type="password" name="password">
     <button type="submit">Register</button>
