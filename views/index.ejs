@@ -10,13 +10,16 @@
 
 
 <div>
-	<ul>
-      	<% for(let i = 0; i < Math.floor(Math.random(artists.name)); i++){ %>
-         <li>
-           <a href="/artists/<%=artists[i].id%>"><%=artists[i].name %></a>
-         </li>
+	<div class="container-fluid">
+    <div class="row">
+      <div class="col-sm">
+      	<% for(let i = 0; i < artists.length; i++){ %>
+         
+           <img style="height: 25%; width: 25%" src="<%=artists[i].urls%>">
+         
       <% } %>
-    </ul>
+	</div>
+  </div>
 </div>
 
 </body>
