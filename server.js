@@ -6,7 +6,7 @@ const session = require('express-session');
 const Artist = require('./models/artists')
 const Client = require('./models/clients')
 const jquery = require('jquery')
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 require('./db/db');
 
