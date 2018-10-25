@@ -14,6 +14,7 @@ router.get('/', (req, res) => {
 				let uniqueCity = []
 				let $uniqueCityTwo = uniqueCity
 				let artistCities = [];
+				let result = uniqueCity.filter(city => uniqueCity === allArtists);
 				for (let i = 0; i < allArtists.length; i++) {
 					 artistCities.push(allArtists[i].city)
 				};
@@ -47,7 +48,7 @@ router.get('/', (req, res) => {
 					client: foundClient,
 					artistId: foundArtist,
 					cities: uniqueCity,
-					$citiesTwo: $uniqueCityTwo
+					cityResult  : result
 				})
 			})
 		}
@@ -250,6 +251,7 @@ router.get('/seed', (req, res) => {
     )
 });
 
+
 // ******************** SHOW ROUTE ******************** //
 router.get('/:id', (req, res) => {
 	Artist.findById(req.params.id,
@@ -266,13 +268,13 @@ router.get('/:id', (req, res) => {
 								user: req.session,
 								client: foundClient,
 								artistId: foundArtistId
+
 					})
 				}
 			})
 		})
 	});
 });
-
 
 // ******************** SHOW ROUTE EMAIL ******************** //
 router.get('/:id/email', (req, res) => {
@@ -387,6 +389,7 @@ router.get('/:id/edit', (req, res) => {
 		})
 	});
 });
+
 router.put('/:id', (req, res) => {
 	Artist.findByIdAndUpdate(req.params.id, req.body,
 		(err, updateArtist) => {

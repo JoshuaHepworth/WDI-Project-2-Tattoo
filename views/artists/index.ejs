@@ -19,11 +19,7 @@
 		<select class="city" name="city" id="cityDropDown">
             <% cities.forEach((elem, i) => {%>
                 <option class="result" value="<%=elem%>"><%=elem%></option>
-            <% if (artists.city === elem) { -%>
-            	<%=artists.name%>
-            <% } else { -%>
-            	<h4>try again</h4>
-            <% } -%>
+              
               
             <% }) %>
 		</select>
@@ -31,7 +27,8 @@
 	
         <% for(let i = 0; i < artists.length; i++){ %>
          
-           <a href="/artists/<%=artists[i].id%>"><br><br><%=artists[i].name %><br>
+           <a class="artist" href="/artists/<%=artists[i].id%>"><br><br><%=artists[i].name %> <%=artists[i].city%><br>
+           
 
          
       <% } %>
@@ -46,8 +43,8 @@
 
 	<script>
 		//if city is clicked, show artists from that city and hide others.
-		$("$citiesTwo").on("change", () => {
-  			$(artists).hide()
+		$(".city").on("change", () => {
+  			$('.artist' !== '.result').hide()
     
 })
 	</script>
