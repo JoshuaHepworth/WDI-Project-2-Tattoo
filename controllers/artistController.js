@@ -365,6 +365,31 @@ router.delete('/:id', (req, res) => {
 			}
 		})
 });
+// ******************** UPDATE ROUTE ******************** //
+router.put('/:id', (req, res) => {
+	console.log('----------------------------------------req.body in artist put route:');
+	console.log(req.body);
+	console.log(req.session);
+	Artist.findByIdAndUpdate(req.params.id, req.body,
+	 	(err, updateArtist) => {
+	// add artist to client favorites:
+		// find artist (use url params id)
+		Artist.findById(req.params.id, (err, foundArtist) => {
+		// find client (use username in req.session)
+			Client.findOne({username: req.session.username}, (err, foundClient) => {
+		// push artist into client favs
+				foundClient.favArtist.push(foundArtist);
+		// client.save
+					foundClient.save((err, savedNewArtist) => {
+						if(err){console.log('--------ERROR--------', err);}
+						else {res.redirect('/clients/'+foundClient.id)}
+					})
+				
+			});
+				
+		});
+	})
+});
 // ******************** EDIT ROUTE ******************** //
 router.get('/:id/edit', (req, res) => {
 	Artist.findById(req.params.id, 
@@ -434,40 +459,6 @@ router.get('/:id/newtat', (req, res) => {
 });
 
 
-// ******************** UPDATE ROUTE ******************** //
-router.put('/:id', (req, res) => {
-	console.log('----------------------------------------req.body in artist put route:');
-	console.log(req.body);
-	console.log(req.session);
-	Artist.findByIdAndUpdate(req.params.id, req.body,
-	 	(err, updateArtist) => {
-	// add artist to client favorites:
-		// find artist (use url params id)
-		Artist.findById(req.params.id, (err, foundArtist) => {
-		// find client (use username in req.session)
-			Client.findOne({username: req.session.username}, (err, foundClient) => {
-		// push artist into client favs
-				// foundClient.favArtist.push(foundArtist);
-		// client.save
-					foundClient.save((err, savedNewArtist) => {
-						if(err){console.log('--------ERROR--------', err);}
-						else {res.redirect('/clients/'+foundClient.id)}
-					})
-				
-			});
-				
-		});
-	})
-});
 
-	// Artist.findByIdAndUpdate(req.params.id, req.body,
-	// 	(err, updateArtist) => {
-	// 			if(err){console.log('--------------ERROR------------', err);}
-	// 			else{
-	// 				console.log('--------------UPDATE ARTIST------------', updateArtist);
-	// 				    res.redirect('/artists')
-
-	// 			}
-	// 	})
-
+	
 module.exports = router;
