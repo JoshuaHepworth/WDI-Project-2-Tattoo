@@ -32,6 +32,9 @@
         <div class="row">
           <div class="col-lg-8 col-md-10 mx-auto">
             <div class="site-heading">
+
+
+
 <div class="artistList">
 		<!--show dropdown menu for the cities that the artists are from
 			only let city be shown once, no repeats if more than one artist is from the same city -->
@@ -48,7 +51,7 @@
 	
         <% for(let i = 0; i < artists.length; i++){ %>
          
-           <a class="artist" href="/artists/<%=artists[i].id%>"><br><br><%=artists[i].name %><br><img style="height: 40%; width: 90%" src="<%=artists[i].urls%>"><br>
+           <a class="artist" data-city="<%=artists[i].city %>" href="/artists/<%=artists[i].id%>"><br><br><%=artists[i].name %><br><img style="height: 40%; width: 90%" src="<%=artists[i].urls%>"><br></a>
            
 
          
@@ -68,11 +71,34 @@
 	
 
 	<script>
+		
 		//if city is clicked, show artists from that city and hide others.
-		$(".city").on("change", () => {
-  			$('.artist' !== '.result').hide()
-    
-})
+		$(".city").on("change", (event) => {
+  			let artistsResult = $('.artist')
+    		// event.currentTarget will contain info about what city was chosen
+    		// or it will be the value of the drop down
+
+    		// hide all .artist-result divs
+    	
+    		// get all .artist-result divs
+    	
+    		// loop over them...
+
+    		for( let i = 0; i < artistsResult.length; i++) {
+    			console.log($(artistsResult[i]))
+						let artistAgain = $(artistsResult[i])    			 
+    			if (artistAgain.attr('data-city') === $(event.currentTarget).val()) {
+    				 artistAgain.show()
+    				 console.log(artistAgain)
+    				} else {
+    					artistAgain.hide()
+    				}
+	    		// ...show the .artist-result divs with the right city
+    		}
+    		console.log(event.currentTarget)
+
+		})
+	</script>
 	</script>
 </body>
 
