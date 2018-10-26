@@ -3,10 +3,12 @@
 <head>
 	<title></title>
 	<link rel="stylesheet" type="text/css" href="/assets/styles.css">
+	<link href="https://fonts.googleapis.com/css?family=Miltonian+Tattoo" rel="stylesheet">
 </head>
 <body>
 	<% include ../partials/nav.ejs %>
 	<h1>Individual Artist Show Page</h1>
+<div class="artistList">
 	<%=artist.name%>
 	<br>
 	<%=artist.city%>
@@ -14,15 +16,23 @@
 	<%=artist.yearsExp%>
 	<br>
 	<br>
-	<img style="height: 25%; width: 25%" src="<%=artist.urls%>"><br>
+                 
+            <% artist.urls.forEach((elem, i) => {%>
+              
+                   <img style="height: 20%; width: 20%" src="<%=artist.urls[i]%>">
+              
+            <% }) %>
+                 
 
+
+
+
+</div>
 
 	<a href="/artists/<%=artist.id%>/edit">Edit Artist</a>
-		
-	
 	<br>
 
-	<a href="/artists/<%=artist.id%>/edit">Add New Photo</a>
+	<a href="/artists/<%=artist.id%>/newtat">Add New Photo</a>
     <form action="/artists/<%=artist.id%>?_method=PUT" method="POST">
     	Add to Favorites: <input type="submit" name="favArtist">
     </form>
@@ -32,4 +42,5 @@
 	<a href="http://localhost:3000/artists/<%=artist.id%>/email">Email Artist to Schedule Appointment</a>
 
 </body>
+
 </html>

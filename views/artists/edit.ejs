@@ -3,17 +3,19 @@
 <head>
 	<title></title>
 	<link rel="stylesheet" type="text/css" href="/assets/styles.css">
+	<link href="https://fonts.googleapis.com/css?family=Miltonian+Tattoo" rel="stylesheet">
 </head>
 <body>
 	<% include ../partials/nav.ejs %>
 	<h1>Edit Artist Information</h1>
+	<div class='artistList'>
 	<h2><%=artist.name%></h2>
 		<form action ="/artists/<%=artist.id%>?_method=PUT" method="POST">
 			Name: <input type="text" name="name" value="<%=artist.name%>"><br>
 			City: <input type="text" name="city" value="<%=artist.city%>"><br>
 			Years Tatooing: <input type="text" name="yearsExp" value="<%=artist.yearsExp%>"><br>
-        	New Tattoo: <input type="text" name="urls">
 			<input type="submit" name="Edit New Artist">
 		</form>
+	</div>
 </body>
 </html>

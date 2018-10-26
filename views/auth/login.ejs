@@ -1,7 +1,17 @@
 
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <link rel="stylesheet" type="text/css" href="/assets/styles.css">
+  <link href="https://fonts.googleapis.com/css?family=Miltonian+Tattoo" rel="stylesheet">
+</head>
+<body>
+
 <% include ../partials/nav.ejs %>
 <br>
 <br>
+<div class="loginDiv">
   <h3>Register</h3> <small><%=message%></small>
   <form action="/auth/register" method="POST">
     <% include ../partials/checkbox.ejs %>
@@ -18,8 +28,10 @@
     <input placeholder="password" type="password" name="password">
     <button type="submit">Login</button>
   </form>
+</div>
 
 
 
 </body>
+
 </html>
