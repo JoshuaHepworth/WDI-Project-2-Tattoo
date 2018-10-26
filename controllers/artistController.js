@@ -331,30 +331,6 @@ router.put('/:id/newTat',(req, res) => {
 	})
 })
 
-// router.post('/:id/newTat', (req, res) => {
-// 	Artist.findById(req.params.id,
-// 		(err, foundArtist) => {
-
-// 			console.log("MMMMMMMMMMMMMNDJQNIUW	UCWN	UNWUEN	UQWNUQND@UENC#RUNFMOEIDUBU")
-// 			// you need req.body
-// 			//push the URL into req.body of the artist ID
-// 			//
-
-// 			// Artist.findOne({username: req.session.username}, (err, foundArtist) => {
-// 					Artist.urls.push(req.body, (err, addPhoto) => {
-// 							if(err){console.log('-----------------ERROR-----------', err);}
-// 							else{
-// 								console.log('----------------ADDED PHOTO-----------------', addPhoto);
-// 								Artist.save();
-// 								res.redirect('artists/:id/show.ejs',{
-// 									artist: foundArtist,
-// 									urls: addPhoto
-// 								})
-// 							}
-// 					})
-// 			})	
-// });
-
 
 // ******************** DESTROY ROUTE ******************** //
 router.delete('/:id', (req, res) => {
@@ -448,7 +424,7 @@ router.put('/:id', (req, res) => {
 		// find client (use username in req.session)
 			Client.findOne({username: req.session.username}, (err, foundClient) => {
 		// push artist into client favs
-				// foundClient.favArtist.push(foundArtist);
+				foundClient.favArtist.push(foundArtist);
 		// client.save
 					foundClient.save((err, savedNewArtist) => {
 						if(err){console.log('--------ERROR--------', err);}
