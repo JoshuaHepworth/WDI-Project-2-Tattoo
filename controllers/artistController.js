@@ -74,6 +74,7 @@ router.get('/new', (req, res) => {
 	})
 })
 
+
 router.get('/seed', (req, res) => {
     Artist.create(
         [
@@ -258,23 +259,20 @@ router.get('/:id', (req, res) => {
 		(err, foundArtist) => {
 			Artist.findOne({username: req.session.username}, (err, foundArtistId) => {
 				Client.findOne({username: req.session.username}, (err, foundClient) => {
-					if(err){console.log('----------ERROR---------', err);}
-						else{
-							console.log('---------------FOUND ARTIST----------', foundArtist);
-							res.render('artists/show.ejs',{
-								artist:foundArtist,
-								username: req.session.username,
-								session: req.session.logged,
-								user: req.session,
-								client: foundClient,
-								artistId: foundArtistId
 
+					res.render('artists/show.ejs',{
+						artist:foundArtist,
+						username: req.session.username,
+						session: req.session.logged,
+						user: req.session,
+						client: foundClient,
+						artistId: foundArtistId
 					})
-				}
+				})
 			})
 		})
+
 	});
-});
 
 // ******************** SHOW ROUTE EMAIL ******************** //
 router.get('/:id/email', (req, res) => {
@@ -343,6 +341,31 @@ router.delete('/:id', (req, res) => {
 			}
 		})
 });
+// ******************** UPDATE ROUTE ******************** //
+router.put('/:id', (req, res) => {
+	console.log('----------------------------------------req.body in artist put route:');
+	console.log(req.body);
+	console.log(req.session);
+	Artist.findByIdAndUpdate(req.params.id, req.body,
+	 	(err, updateArtist) => {
+	// add artist to client favorites:
+		// find artist (use url params id)
+		Artist.findById(req.params.id, (err, foundArtist) => {
+		// find client (use username in req.session)
+			Client.findOne({username: req.session.username}, (err, foundClient) => {
+		// push artist into client favs
+				foundClient.favArtist.push(foundArtist);
+		// client.save
+					foundClient.save((err, savedNewArtist) => {
+						if(err){console.log('--------ERROR--------', err);}
+						else {res.redirect('/clients/'+foundClient.id)}
+					})
+				
+			});
+				
+		});
+	})
+});
 // ******************** EDIT ROUTE ******************** //
 router.get('/:id/edit', (req, res) => {
 	Artist.findById(req.params.id, 
@@ -363,8 +386,9 @@ router.get('/:id/edit', (req, res) => {
 				}
 			})
 		})
-	});
-});
+
+	})
+})
 
 router.put('/:id', (req, res) => {
 	Artist.findByIdAndUpdate(req.params.id, req.body,
@@ -411,6 +435,7 @@ router.get('/:id/newtat', (req, res) => {
 });
 
 
+
 // ******************** UPDATE ROUTE ******************** //
 router.put('/:id', (req, res) => {
 	console.log('----------------------------------------req.body in artist put route:');
@@ -437,14 +462,7 @@ router.put('/:id', (req, res) => {
 	})
 });
 
-	// Artist.findByIdAndUpdate(req.params.id, req.body,
-	// 	(err, updateArtist) => {
-	// 			if(err){console.log('--------------ERROR------------', err);}
-	// 			else{
-	// 				console.log('--------------UPDATE ARTIST------------', updateArtist);
-	// 				    res.redirect('/artists')
 
-	// 			}
-	// 	})
 
+	
 module.exports = router;

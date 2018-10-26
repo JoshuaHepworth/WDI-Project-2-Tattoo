@@ -7,39 +7,63 @@
 	<link href="https://fonts.googleapis.com/css?family=Miltonian+Tattoo" rel="stylesheet">
 </head>
 <body>
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+      <div class="container">
+        
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"> 
+<% include ../partials/nav.ejs %>
+            
+          
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+        </div>
+      </div>
+    </nav>
 
-	<% include ../partials/nav.ejs %>
-	<h1>Artist Index Page</h1>
+	
+	<h1>Artists</h1>
 	<br>
 	<h2></h2>
+<header class="masthead" style="background-image: url('img/home-bg.jpg')">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <div class="site-heading">
+
+
 
 <div class="artistList">
 		<!--show dropdown menu for the cities that the artists are from
 			only let city be shown once, no repeats if more than one artist is from the same city -->
+			<small>filter by</small><br>
 		<select class="city" name="city" id="cityDropDown">
             <% cities.forEach((elem, i) => {%>
                 <option class="result" value="<%=elem%>"><%=elem%></option>
               
               
             <% }) %>
+
 		</select>
 
 	
-		<% for(let i = 0; i < artists.length; i++){ %>
-             
-            <div class="artist-result" data-city="artist-city">
-
-               <a class="artist" href="/artists/<%=artists[i].id%>">
-               <br>
-               <br>
-               <%=artists[i].name %><br><img style="height: 20%; width: 20%" src="<%=artists[i].urls%>">
-               <br>
+        <% for(let i = 0; i < artists.length; i++){ %>
+         
+           <a class="artist" data-city="<%=artists[i].city %>" href="/artists/<%=artists[i].id%>"><br><br><%=artists[i].name %><br><img style="height: 40%; width: 90%" src="<%=artists[i].urls%>"><br></a>
+           
 
             </div>
          
       <% } %>
-    </ul>
 </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
 	<br>
 
 
@@ -48,11 +72,34 @@
 	
 
 	<script>
+		
 		//if city is clicked, show artists from that city and hide others.
-		$(".city").on("change", () => {
-  			$('.artist' !== '.result').hide()
-    
-})
+		$(".city").on("change", (event) => {
+  			let artistsResult = $('.artist')
+    		// event.currentTarget will contain info about what city was chosen
+    		// or it will be the value of the drop down
+
+    		// hide all .artist-result divs
+    	
+    		// get all .artist-result divs
+    	
+    		// loop over them...
+
+    		for( let i = 0; i < artistsResult.length; i++) {
+    			console.log($(artistsResult[i]))
+						let artistAgain = $(artistsResult[i])    			 
+    			if (artistAgain.attr('data-city') === $(event.currentTarget).val()) {
+    				 artistAgain.show()
+    				 console.log(artistAgain)
+    				} else {
+    					artistAgain.hide()
+    				}
+	    		// ...show the .artist-result divs with the right city
+    		}
+    		console.log(event.currentTarget)
+
+		})
+	</script>
 	</script>
 </body>
 
